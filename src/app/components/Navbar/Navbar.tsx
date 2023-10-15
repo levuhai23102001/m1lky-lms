@@ -10,8 +10,11 @@ import Login from "../../components/Auth/Login";
 import SignUp from "../../components/Auth/SignUp";
 import Verification from "../../components/Auth/Verification";
 import { useSelector } from "react-redux";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import avatar from "../../../../public/assets/avatar.jpg";
+import { useSocialAuthMutation } from "@/app/redux/features/auth/authApi";
+import { toast } from "react-toastify";
 
 type Props = {
   open: boolean;
@@ -25,6 +28,23 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
   const { user } = useSelector((state: any) => state.auth);
+  const { data } = useSession();
+  const [socialAuth, { isSuccess }] = useSocialAuthMutation();
+
+  useEffect(() => {
+    if (!user) {
+      if (data) {
+        socialAuth({
+          email: data?.user?.email,
+          name: data?.user?.name,
+          avatar: data?.user?.image,
+        });
+      }
+    }
+    if (isSuccess) {
+      toast.success("Login successfully!");
+    }
+  }, [data, user]);
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
@@ -105,11 +125,24 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
             <div className="w-[65%] fixed z-[99999] h-screen bg-white dark:bg-slate-900 top-0 right-0">
               <NavItems activeItem={activeItem} isMobile={true} />
               <div className="w-full flex justify-center">
-                <BiSolidUser
-                  size={23}
-                  className="cursor-pointer dark:text-white text-black"
-                  onClick={() => setOpen(true)}
-                />
+                {user ? (
+                  <Link
+                    href={"/profile"}
+                    className="w-[30px] h-[30px] rounded-full border-solid border-2 border-[#00ffca] dark:border-[#ff3377] overflow-hidden"
+                  >
+                    <Image
+                      src={user.avatar ? user.avatar : avatar}
+                      alt="avatar"
+                      className="cursor-pointer object-cover"
+                    />
+                  </Link>
+                ) : (
+                  <BiSolidUser
+                    size={23}
+                    className="cursor-pointer dark:text-white text-black"
+                    onClick={() => setOpen(true)}
+                  />
+                )}
               </div>
 
               <p className="w-full text-[12px] absolute bottom-5 flex justify-center text-center text-black dark:text-white">

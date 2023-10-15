@@ -1,3 +1,4 @@
+import { socialAuth } from "./../../../../../../m1lky-server/controllers/user.controller";
 import { apiSlice } from "../api/apiSlice";
 import { userLogin, userRegistration } from "./authSlice";
 
@@ -60,8 +61,37 @@ export const authApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    socialAuth: builder.mutation({
+      query: ({ email, name, avatar }) => ({
+        url: "auth/social-auth",
+        method: "POST",
+        body: {
+          email,
+          name,
+          avatar,
+        },
+        credentials: "include" as const,
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const res = await queryFulfilled;
+          dispatch(
+            userLogin({
+              user: res.data.user,
+              accessToken: res.data.accessToken,
+            })
+          );
+        } catch (err: any) {
+          console.log(err);
+        }
+      },
+    }),
   }),
 });
 
-export const { useRegisterMutation, useActivationMutation, useLoginMutation } =
-  authApi;
+export const {
+  useRegisterMutation,
+  useActivationMutation,
+  useLoginMutation,
+  useSocialAuthMutation,
+} = authApi;
