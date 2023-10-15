@@ -1,0 +1,67 @@
+import { apiSlice } from "../api/apiSlice";
+import { userLogin, userRegistration } from "./authSlice";
+
+type RegistrationResponse = {
+  message: string;
+  activeToken: string;
+};
+
+type RegistrationData = {};
+
+export const authApi = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    register: builder.mutation<RegistrationResponse, RegistrationData>({
+      query: (data) => ({
+        url: "auth/registration",
+        method: "POST",
+        body: data,
+        credentials: "include" as const,
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const res = await queryFulfilled;
+          dispatch(userRegistration({ token: res.data.activeToken }));
+        } catch (err: any) {
+          console.log(err);
+        }
+      },
+    }),
+    activation: builder.mutation({
+      query: ({ active_code, active_token }) => ({
+        url: "auth/active-user",
+        method: "POST",
+        body: {
+          active_code,
+          active_token,
+        },
+      }),
+    }),
+    login: builder.mutation({
+      query: ({ email, password }) => ({
+        url: "auth/login",
+        method: "POST",
+        body: {
+          email,
+          password,
+        },
+        credentials: "include" as const,
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const res = await queryFulfilled;
+          dispatch(
+            userLogin({
+              user: res.data.user,
+              accessToken: res.data.accessToken,
+            })
+          );
+        } catch (err: any) {
+          console.log(err);
+        }
+      },
+    }),
+  }),
+});
+
+export const { useRegisterMutation, useActivationMutation, useLoginMutation } =
+  authApi;
