@@ -13,7 +13,10 @@ import { useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import avatar from "../../../../public/assets/avatar.jpg";
-import { useSocialAuthMutation } from "@/app/redux/features/auth/authApi";
+import {
+  useLogoutQuery,
+  useSocialAuthMutation,
+} from "@/app/redux/features/auth/authApi";
 import { toast } from "react-toastify";
 
 type Props = {
@@ -30,6 +33,10 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
   const { user } = useSelector((state: any) => state.auth);
   const { data } = useSession();
   const [socialAuth, { isSuccess }] = useSocialAuthMutation();
+  const [logout, setLogout] = useState(false);
+  const {} = useLogoutQuery(undefined, {
+    skip: !logout ? true : false,
+  });
 
   useEffect(() => {
     if (!user) {
@@ -41,8 +48,13 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
         });
       }
     }
-    if (isSuccess) {
-      toast.success("Login successfully!");
+    if (data === null) {
+      if (isSuccess) {
+        toast.success("Login successfully!");
+      }
+    }
+    if (data === null) {
+      setLogout(true);
     }
   }, [data, user]);
 
@@ -89,11 +101,17 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                 {user ? (
                   <Link
                     href={"/profile"}
-                    className="w-[30px] h-[30px] rounded-full border-solid border-2 border-[#00ffca] dark:border-[#ff3377] overflow-hidden"
+                    className={`${
+                      activeItem === 5
+                        ? "w-[30px] h-[30px] rounded-full border-solid border-2 border-[#00ffca] dark:border-[#ff3377] overflow-hidden"
+                        : "w-[30px] h-[30px] rounded-full border-solid border-2 border-[#0008] dark:border-[#fff] overflow-hidden"
+                    }`}
                   >
                     <Image
-                      src={user.avatar ? user.avatar : avatar}
+                      src={user.avatar ? user.avatar.url : avatar}
                       alt="avatar"
+                      width={30}
+                      height={30}
                       className="cursor-pointer object-cover"
                     />
                   </Link>
@@ -128,11 +146,17 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                 {user ? (
                   <Link
                     href={"/profile"}
-                    className="w-[30px] h-[30px] rounded-full border-solid border-2 border-[#00ffca] dark:border-[#ff3377] overflow-hidden"
+                    className={`${
+                      activeItem === 5
+                        ? "w-[30px] h-[30px] rounded-full border-solid border-2 border-[#00ffca] dark:border-[#ff3377] overflow-hidden"
+                        : "w-[30px] h-[30px] rounded-full border-solid border-2 border-[#000] dark:border-[#fff] overflow-hidden"
+                    }`}
                   >
                     <Image
-                      src={user.avatar ? user.avatar : avatar}
+                      src={user.avatar ? user.avatar.url : avatar}
                       alt="avatar"
+                      width={30}
+                      height={30}
                       className="cursor-pointer object-cover"
                     />
                   </Link>

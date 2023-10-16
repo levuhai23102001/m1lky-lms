@@ -1,6 +1,5 @@
-import { socialAuth } from "./../../../../../../m1lky-server/controllers/user.controller";
 import { apiSlice } from "../api/apiSlice";
-import { userLogin, userRegistration } from "./authSlice";
+import { userLogin, userLogout, userRegistration } from "./authSlice";
 
 type RegistrationResponse = {
   message: string;
@@ -86,6 +85,20 @@ export const authApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    logout: builder.query({
+      query: () => ({
+        url: "auth/logout",
+        method: "GET",
+        credentials: "include" as const,
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          dispatch(userLogout());
+        } catch (err: any) {
+          console.log(err);
+        }
+      },
+    }),
   }),
 });
 
@@ -94,4 +107,5 @@ export const {
   useActivationMutation,
   useLoginMutation,
   useSocialAuthMutation,
+  useLogoutQuery,
 } = authApi;
