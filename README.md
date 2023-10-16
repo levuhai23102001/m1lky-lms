@@ -10,3 +10,6 @@
 
 HOMEPAGE
 ![image](https://github.com/levuhai23102001/m1lky-lms/assets/58142935/11b487c1-6602-4cb1-8e75-caff0a0d5b44)
+
+PROFILE PAGE
+![image](https://github.com/levuhai23102001/m1lky-lms/assets/58142935/9a08c91c-ddff-4dc6-be54-816bef33f80f)
