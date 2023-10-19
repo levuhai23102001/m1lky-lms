@@ -11,7 +11,6 @@ import { styles } from "@/app/styles/style";
 import { toast } from "react-toastify";
 import { useLoginMutation } from "@/app/redux/features/auth/authApi";
 import { signIn } from "next-auth/react";
-import { useTheme } from "next-themes";
 
 type Props = {
   setRoute: (route: string) => void;
@@ -26,7 +25,6 @@ const schema = Yup.object().shape({
 });
 
 const Login: FC<Props> = ({ setRoute, setOpen }) => {
-  const { theme } = useTheme();
   const [show, setShow] = useState(false);
   const [login, { isSuccess, error }] = useLoginMutation();
   const formik = useFormik({
@@ -122,8 +120,7 @@ const Login: FC<Props> = ({ setRoute, setOpen }) => {
           />
           <AiFillGithub
             size={30}
-            className="cursor-pointer ml-2"
-            fill={theme === "light" ? "#000" : "#fff"}
+            className="cursor-pointer ml-2 text-black dark:text-white"
             onClick={() => signIn("github")}
           />
         </div>

@@ -3,8 +3,12 @@ import React, { FC, useEffect, useState } from "react";
 import avatarIcon from "../../../../public/assets/avatar.jpg";
 import { AiOutlineCamera } from "react-icons/ai";
 import { styles } from "@/app/styles/style";
-import { useUpdateAvatarMutation } from "@/app/redux/features/user/userApi";
+import {
+  useUpdateAvatarMutation,
+  useUpdateProfileMutation,
+} from "@/app/redux/features/user/userApi";
 import { useLoadUserQuery } from "@/app/redux/features/api/apiSlice";
+import { toast } from "react-toastify";
 
 type Props = {
   user: any;
@@ -14,6 +18,8 @@ type Props = {
 const ProfileInfo: FC<Props> = ({ user, avatar }) => {
   const [name, setName] = useState(user && user.name);
   const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation();
+  const [updateProfile, { isSuccess: success, error: updateError }] =
+    useUpdateProfileMutation();
   const [loadUser, setLoadUser] = useState(false);
   const {} = useLoadUserQuery(undefined, { skip: loadUser ? false : true });
 
@@ -29,15 +35,23 @@ const ProfileInfo: FC<Props> = ({ user, avatar }) => {
   };
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess || success) {
       setLoadUser(true);
     }
-    if (error) {
+    if (error || updateError) {
       console.log(error);
     }
-  }, [isSuccess, error]);
+    if (success) {
+      toast.success("Profile updated successfully!");
+    }
+  }, [isSuccess, error, success, updateError]);
 
-  const handleSubmit = (e: any) => {};
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    if (name !== "") {
+      await updateProfile({ name: name });
+    }
+  };
   return (
     <>
       <div className="w-full flex justify-center">
@@ -94,13 +108,13 @@ const ProfileInfo: FC<Props> = ({ user, avatar }) => {
                 readOnly
                 value={user?.email}
               />
-              <input
-                className={`w-full 800px:w-[250px] h-[40px] border dark:border-[#ff3377] border-[#00ffca]  text-center dark:text-[#fff] text-black rounded-[4px] mt-6 cursor-pointer`}
-                required
-                value="Update"
-                type="submit"
-              />
             </div>
+            <input
+              className={`w-full 800px:w-[250px] h-[40px] border dark:border-[#ff3377] border-[#00ffca]  text-center dark:text-[#fff] text-black rounded-[4px] mt-6 cursor-pointer`}
+              required
+              value="Update"
+              type="submit"
+            />
           </div>
         </form>
       </div>

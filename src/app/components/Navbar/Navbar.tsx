@@ -35,7 +35,7 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
   const [socialAuth, { isSuccess }] = useSocialAuthMutation();
   const [logout, setLogout] = useState(false);
   const {} = useLogoutQuery(undefined, {
-    skip: !logout ? true : false,
+    skip: logout ? false : true,
   });
 
   useEffect(() => {
@@ -47,14 +47,14 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
           avatar: data?.user?.image,
         });
       }
+      if (data === null) {
+        setLogout(true);
+      }
     }
     if (data === null) {
       if (isSuccess) {
         toast.success("Login successfully!");
       }
-    }
-    if (data === null) {
-      setLogout(true);
     }
   }, [data, user]);
 

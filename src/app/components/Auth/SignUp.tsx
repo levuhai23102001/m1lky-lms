@@ -10,7 +10,6 @@ import { FcGoogle } from "react-icons/fc";
 import { styles } from "@/app/styles/style";
 import { useRegisterMutation } from "@/app/redux/features/auth/authApi";
 import { toast } from "react-toastify";
-import { useTheme } from "next-themes";
 
 type Props = {
   setRoute: (route: string) => void;
@@ -25,7 +24,6 @@ const schema = Yup.object().shape({
 });
 
 const SignUp: FC<Props> = ({ setRoute }) => {
-  const { theme } = useTheme();
   const [show, setShow] = useState(false);
   const [register, { data, error, isSuccess }] = useRegisterMutation();
 
@@ -143,8 +141,7 @@ const SignUp: FC<Props> = ({ setRoute }) => {
           <FcGoogle size={30} className="cursor-pointer mr-2" />
           <AiFillGithub
             size={30}
-            fill={theme === "light" ? "#000" : "#fff"}
-            className="cursor-pointer ml-2"
+            className="cursor-pointer ml-2 text-black dark:text-white"
           />
         </div>
         <h5 className="text-center my-5 font-Poppins text-[14px] text-black dark:text-white">
