@@ -1,0 +1,15 @@
+.popover::-webkit-scrollbar {
+  width: 7px;
+  background-color: transparent;
+}
+.popover::-webkit-scrollbar-thumb {
+  background-color: #ff3377;
+  border-radius: 6px;
+}
+.popover::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.popover {
+  overflow: auto;
+}

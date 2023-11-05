@@ -104,7 +104,7 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                     className={`${
                       activeItem === 5
                         ? "w-[30px] h-[30px] rounded-full border-solid border-2 border-[#00ffca] dark:border-[#ff3377] overflow-hidden"
-                        : "w-[30px] h-[30px] rounded-full border-solid border-2 border-[#0008] dark:border-[#fff] overflow-hidden"
+                        : "w-[30px] h-[30px] rounded-full border-solid border-2 border-[#000] dark:border-[#fff] overflow-hidden"
                     }`}
                   >
                     <Image

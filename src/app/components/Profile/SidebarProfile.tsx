@@ -5,6 +5,7 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { SiCoursera } from "react-icons/si";
 import { AiOutlineLogout } from "react-icons/ai";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import Link from "next/link";
 
 type Props = {
   user: any;
@@ -66,12 +67,11 @@ const SidebarProfile: FC<Props> = ({
         </h5>
       </div>
       {user.role === "admin" && (
-        <a
+        <Link
           className={`w-full flex items-center p-4 cursor-pointer ${
             active === 6 ? "dark:bg-slate-800 bg-[#ebebebd4]" : "bg-transparent"
           }`}
-          href="/admin"
-          target="_blank"
+          href={"/admin"}
         >
           <MdOutlineAdminPanelSettings
             size={20}
@@ -80,7 +80,7 @@ const SidebarProfile: FC<Props> = ({
           <h5 className="pl-4 800px:block hidden font-Poppins dark:text-white text-black">
             Admin Dashboard
           </h5>
-        </a>
+        </Link>
       )}
       <div
         className={`w-full flex items-center p-4 cursor-pointer ${

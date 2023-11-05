@@ -1,0 +1,15 @@
+.pro-sidebar-layout::-webkit-scrollbar {
+  width: 7px;
+  background-color: transparent;
+}
+.pro-sidebar-layout::-webkit-scrollbar-thumb {
+  background-color: #ff3377;
+  border-radius: 6px;
+}
+.pro-sidebar-layout::-webkit-scrollbar-track {
+  background-color: #ff94b8e6;
+}
+
+.pro-sidebar-inner {
+  backdrop-filter: blur(8px);
+}
