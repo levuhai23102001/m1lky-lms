@@ -23,7 +23,7 @@ const DashboardHeader: FC<Props> = (props) => {
         </span>
       </div>
       {open && (
-        <div className="w-[350px] h-[50vh] dark:bg-[#111c43] bg-white shadow-xl absolute top-16 z-10 rounded p-2 popover">
+        <div className="w-[350px] h-[50vh] dark:bg-[#111c43] bg-white shadow-xl absolute top-16 rounded p-2 popover z-[999]">
           <h5 className="text-center text-[20px] font-Poppins text-black dark:text-white p-3">
             Notifications
           </h5>

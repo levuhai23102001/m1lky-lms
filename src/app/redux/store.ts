@@ -13,7 +13,7 @@ export const store = configureStore({
     getDefaultMiddleware().concat(apiSlice.middleware),
 });
 
-//call the refresh token
+//call the refresh token & load user
 const initializeApp = async () => {
   await store.dispatch(
     apiSlice.endpoints.refreshToken.initiate({}, { forceRefetch: true })

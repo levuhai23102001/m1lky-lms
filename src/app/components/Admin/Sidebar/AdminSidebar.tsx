@@ -209,7 +209,7 @@ const AdminSidebar = () => {
             />
             <Item
               title="Live Courses"
-              to="/admin/live-courses"
+              to="/admin/courses"
               icon={<OndemandVideoIcon />}
               selected={selected}
               setSelected={setSelected}
