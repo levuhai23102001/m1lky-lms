@@ -139,6 +139,7 @@ const AdminSidebar = () => {
                   alt="avatar"
                   width={100}
                   height={100}
+                  priority
                   style={{
                     cursor: "pointer",
                     borderRadius: "50%",
@@ -223,7 +224,7 @@ const AdminSidebar = () => {
             </Typography>
             <Item
               title="Hero"
-              to="/admin/Hero"
+              to="/admin/hero"
               icon={<WebIcon />}
               selected={selected}
               setSelected={setSelected}

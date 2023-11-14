@@ -137,6 +137,7 @@ const CreateCourse = (props: Props) => {
             active={active}
             setActive={setActive}
             handleCreateCourse={handleCreateCourse}
+            isEdit={false}
           />
         )}
       </div>
