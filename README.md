@@ -16,3 +16,6 @@ PROFILE PAGE
 
 ADMIN PAGE - CREATE COURSE
 ![image](https://github.com/levuhai23102001/m1lky-lms/assets/58142935/d51e6223-0b1b-49de-a158-af80440f1bb0)
+
+ADMIN PAGE - HERO LAYOUT
+![image](https://github.com/levuhai23102001/m1lky-lms/assets/58142935/8b14693e-3058-4333-acf9-ee3258afeff1)
