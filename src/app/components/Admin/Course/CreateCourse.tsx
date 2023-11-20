@@ -22,9 +22,11 @@ const CreateCourse = (props: Props) => {
     estimatedPrice: "",
     tags: "",
     level: "",
+    categories: "",
     demoUrl: "",
     thumbnail: "",
   });
+  console.log(courseInfo);
   const [benefits, setBenefits] = useState([{ title: "" }]);
   const [prerequisites, setPrerequisites] = useState([{ title: "" }]);
   const [courseContentData, setCourseContentData] = useState([
@@ -33,12 +35,13 @@ const CreateCourse = (props: Props) => {
       title: "",
       description: "",
       videoSection: "United Section",
+      videoLength: "",
       links: [{ title: "", url: "" }],
       suggestion: "",
     },
   ]);
   const [courseData, setCourseData] = useState({});
-
+  console.log(courseData);
   const handleSubmit = async () => {
     //format benefits array
     const formattedBenefits = benefits.map((benefit) => ({
@@ -54,6 +57,7 @@ const CreateCourse = (props: Props) => {
         videoUrl: courseContent.videoUrl,
         title: courseContent.title,
         description: courseContent.description,
+        videoLength: courseContent.videoLength,
         videoSection: courseContent.videoSection,
         links: courseContent.links.map((link) => ({
           title: link.title,
@@ -66,6 +70,7 @@ const CreateCourse = (props: Props) => {
     const data = {
       name: courseInfo.name,
       description: courseInfo.description,
+      categories: courseInfo.categories,
       price: courseInfo.price,
       estimatedPrice: courseInfo.estimatedPrice,
       tags: courseInfo.tags,
@@ -137,7 +142,6 @@ const CreateCourse = (props: Props) => {
             active={active}
             setActive={setActive}
             handleCreateCourse={handleCreateCourse}
-            isEdit={false}
           />
         )}
       </div>

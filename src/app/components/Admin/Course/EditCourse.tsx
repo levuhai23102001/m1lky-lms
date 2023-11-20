@@ -36,6 +36,7 @@ const EditCourse: FC<Props> = ({ id }) => {
       setCourseInfo({
         name: editCourseData.name,
         description: editCourseData.description,
+        categories: editCourseData.categories,
         price: editCourseData.price,
         estimatedPrice: editCourseData?.estimatedPrice,
         tags: editCourseData.tags,
@@ -56,6 +57,7 @@ const EditCourse: FC<Props> = ({ id }) => {
     estimatedPrice: "",
     tags: "",
     level: "",
+    categories: "",
     demoUrl: "",
     thumbnail: "",
   });
@@ -67,6 +69,7 @@ const EditCourse: FC<Props> = ({ id }) => {
       title: "",
       description: "",
       videoSection: "United Section",
+      videoLength: "",
       links: [{ title: "", url: "" }],
       suggestion: "",
     },
@@ -88,6 +91,7 @@ const EditCourse: FC<Props> = ({ id }) => {
         videoUrl: courseContent.videoUrl,
         title: courseContent.title,
         description: courseContent.description,
+        videoLength: courseContent.videoLength,
         videoSection: courseContent.videoSection,
         links: courseContent.links.map((link) => ({
           title: link.title,
@@ -100,6 +104,7 @@ const EditCourse: FC<Props> = ({ id }) => {
     const data = {
       name: courseInfo.name,
       description: courseInfo.description,
+      categories: courseInfo.categories,
       price: courseInfo.price,
       estimatedPrice: courseInfo.estimatedPrice,
       tags: courseInfo.tags,
@@ -127,7 +132,6 @@ const EditCourse: FC<Props> = ({ id }) => {
     if (error) {
       if ("data" in error) {
         const errorMessage = error as any;
-
         toast.error(errorMessage.data.message);
       }
     }

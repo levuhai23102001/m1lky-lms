@@ -1,8 +1,12 @@
-import { useGetHeroDataQuery } from "@/app/redux/features/layout/layoutApi";
+import {
+  useEditLayoutMutation,
+  useGetLayoutDataQuery,
+} from "@/app/redux/features/layout/layoutApi";
 import { styles } from "@/app/styles/style";
 import Image from "next/image";
 import React, { FC, useEffect, useState } from "react";
 import { AiOutlineCamera } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 type Props = {};
 
@@ -10,9 +14,10 @@ const EditHero: FC<Props> = (props) => {
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");
-  const { data } = useGetHeroDataQuery("Banner", {
+  const { data, refetch } = useGetLayoutDataQuery("Banner", {
     refetchOnMountOrArgChange: true,
   });
+  const [editLayout, { isLoading, isSuccess, error }] = useEditLayoutMutation();
 
   useEffect(() => {
     if (data) {
@@ -20,11 +25,39 @@ const EditHero: FC<Props> = (props) => {
       setSubTitle(data?.layout?.banner.subTitle);
       setImage(data?.layout?.banner?.image?.url);
     }
-  }, [data]);
+    if (isSuccess) {
+      toast.success("Hero updated successfully!");
+      refetch();
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorMessage = error as any;
+        toast.error(errorMessage?.data.message);
+      }
+    }
+  }, [data, isSuccess, error, refetch]);
 
-  const handleUpdate = () => {};
+  const handleUpdate = (e: any) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        if (reader.readyState === 2) {
+          setImage(e.target.result as string);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
-  const handleEdit = () => {};
+  const handleEdit = async () => {
+    await editLayout({
+      type: "Banner",
+      image,
+      title,
+      subTitle,
+    });
+  };
 
   return (
     <>
@@ -48,7 +81,7 @@ const EditHero: FC<Props> = (props) => {
           <br />
           <br />
           <div
-            className={`w-[100px] min-h-[40px] h-[40px] inline-flex items-center justify-center py-2 px-6 dark:text-white text-black bg-[#cccccc34] ${
+            className={`w-[100px] min-h-[40px] h-[40px] inline-flex items-center justify-center py-2 px-6 dark:text-white text-black bg-[#cccccc34] z-[999] ${
               data?.layout?.banner?.title !== title ||
               data?.layout?.banner?.subTitle !== subTitle ||
               data?.layout?.banner?.image?.url !== image
