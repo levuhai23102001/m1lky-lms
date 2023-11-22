@@ -1,10 +1,10 @@
 "use client";
-import DashboardHeader from "@/app/components/Admin/Dashboard/DashboardHeader";
 import AdminSidebar from "@/app/components/Admin/Sidebar/AdminSidebar";
 import AdminProtected from "@/app/hooks/adminProtected";
 import Heading from "@/app/utils/Heading";
 import React from "react";
 import EditHero from "@/app/components/Admin/Customization/EditHero";
+import DashboardHero from "@/app/components/Admin/Dashboard/DashboardHero";
 
 type Props = {};
 
@@ -22,7 +22,7 @@ const page = (props: Props) => {
             <AdminSidebar />
           </div>
           <div className="w-[85%]">
-            <DashboardHeader />
+            <DashboardHero />
             <EditHero />
           </div>
         </div>

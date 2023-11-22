@@ -2,9 +2,9 @@
 import React from "react";
 import AdminSidebar from "@/app/components/Admin/Sidebar/AdminSidebar";
 import Heading from "@/app/utils/Heading";
-import DashboardHeader from "@/app/components/Admin/Dashboard/DashboardHeader";
 import EditCourse from "@/app/components/Admin/Course/EditCourse";
 import AdminProtected from "@/app/hooks/adminProtected";
+import DashboardHero from "@/app/components/Admin/Dashboard/DashboardHero";
 
 type Props = {};
 
@@ -24,7 +24,7 @@ const page = ({ params }: any) => {
             <AdminSidebar />
           </div>
           <div className="w-[85%]">
-            <DashboardHeader />
+            <DashboardHero />
             <EditCourse id={id} />
           </div>
         </div>
