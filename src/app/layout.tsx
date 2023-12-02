@@ -32,8 +32,8 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${josefin.variable} !bg-white bg-no-repeat dark:bg-gradient-to-b dark:from-gray-900 dark:to-black duration-300`}
       >
+        <div className="w-full h-full absolute top-0 bottom-0 bg-center bg-no-repeat bg-fixed bg-hero-light dark:bg-hero-dark duration-300 bg-cover z-[-1]"></div>
         <Providers>
-          <div className="w-full h-full absolute inset-0 bottom-10 bg-center bg-no-repeat bg-hero-light dark:bg-hero-dark duration-300 bg-[length:150rem] z-[-1]"></div>
           <SessionProvider>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
               <Custom>{children}</Custom>

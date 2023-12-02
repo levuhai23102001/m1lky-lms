@@ -1,3 +1,4 @@
+import { getAllCourseAdmin } from "./../../../../../../m1lky-server/controllers/course.controller";
 import { apiSlice } from "../api/apiSlice";
 
 export const coursesApi = apiSlice.injectEndpoints({
@@ -13,6 +14,13 @@ export const coursesApi = apiSlice.injectEndpoints({
     getAllCoursesAdmin: builder.query({
       query: () => ({
         url: "courses/get-all-courses",
+        method: "GET",
+        credentials: "include" as const,
+      }),
+    }),
+    getAllCourseUser: builder.query({
+      query: () => ({
+        url: "courses/get-courses",
         method: "GET",
         credentials: "include" as const,
       }),
@@ -38,6 +46,7 @@ export const coursesApi = apiSlice.injectEndpoints({
 export const {
   useCreateCourseMutation,
   useGetAllCoursesAdminQuery,
+  useGetAllCourseUserQuery,
   useDeleteCourseMutation,
   useEditCourseMutation,
 } = coursesApi;
