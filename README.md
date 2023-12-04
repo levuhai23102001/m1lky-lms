@@ -14,6 +14,9 @@ HOMEPAGE
 PROFILE PAGE
 ![image](https://github.com/levuhai23102001/m1lky-lms/assets/58142935/9a08c91c-ddff-4dc6-be54-816bef33f80f)
 
+COURSE DETAILS
+![image](https://github.com/levuhai23102001/m1lky-lms/assets/58142935/2a199075-1dd9-4365-8d3a-f09bad1abdb4)
+
 ADMIN PAGE
 ![image](https://github.com/levuhai23102001/m1lky-lms/assets/58142935/3976a277-1384-41b5-b949-af338d13cf41)
 
