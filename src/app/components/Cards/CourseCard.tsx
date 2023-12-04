@@ -48,7 +48,10 @@ const CourseCard: FC<Props> = ({ item, isProfile }) => {
               </h5>
             </div>
             <div className="flex items-center pb-3">
-              <AiOutlineUnorderedList size={20} fill="#fff" />
+              <AiOutlineUnorderedList
+                size={20}
+                className="text-black dark:text-[#fff]"
+              />
               <h5 className="pl-2 text-black dark:text-white">
                 {item.courseData?.length} Lectures
               </h5>

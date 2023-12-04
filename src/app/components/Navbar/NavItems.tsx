@@ -18,7 +18,7 @@ const NavItems: FC<Props> = ({ activeItem, isMobile }) => {
               <span
                 className={`${
                   activeItem === index
-                    ? "dark:text-[#ff3366] text-[#37a39a]"
+                    ? "dark:text-[#ff3366] text-[#96EFFF]"
                     : "dark:text-white text-black"
                 } text-[16px] px-6 font-Poppins font-[400]`}
               >
@@ -45,7 +45,7 @@ const NavItems: FC<Props> = ({ activeItem, isMobile }) => {
                   <span
                     className={`${
                       activeItem === index
-                        ? "dark:text-[#ff3366] text-[#37a39a]"
+                        ? "dark:text-[#ff3366] text-[#96EFFF]"
                         : "dark:text-white text-black"
                     } block py-5 text-[16px] px-6 font-Poppins font-[400]`}
                   >

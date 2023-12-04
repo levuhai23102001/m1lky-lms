@@ -8,7 +8,7 @@ type Props = {
 
 const ReviewCard: FC<Props> = ({ item }) => {
   return (
-    <div className="w-full h-max pb-4 dark:bg-slate-500 dark:bg-opacity-[0.20] border-[#00000028] dark:border-[#ffffff1d] backdrop-blur shadow-[bg-slate-700] rounded-lg p-3 shadow-inner">
+    <div className="w-full h-max p-5 dark:bg-slate-500 dark:bg-opacity-[0.20] border-[#00000028] dark:border-[#ffffff1d] backdrop-blur shadow-[bg-slate-700] rounded-lg shadow-inner">
       <div className="flex w-full">
         <Image
           src={item.avatar}

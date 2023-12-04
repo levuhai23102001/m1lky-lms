@@ -21,7 +21,7 @@ const Reviews = (props: Props) => {
         <div className="800px:w-[50%] w-full">
           <h3 className={`${styles.title} 800px:!text-[40px] font-[700]`}>
             Our Students Are{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r dark:from-purple-400 dark:to-pink-600 from-[#96EFFF] to-[#5FBDFF]">
               Our Strength
             </span>{" "}
             <br /> See What They Say About Us

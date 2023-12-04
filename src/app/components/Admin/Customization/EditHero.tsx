@@ -62,7 +62,7 @@ const EditHero: FC<Props> = (props) => {
   return (
     <>
       <div className="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
-        <div className="mr-auto place-self-center lg:col-span-7 400px:mt-20 300px:mt-10">
+        <div className="place-self-center lg:col-span-7 400px:mt-20 300px:mt-10">
           <textarea
             className="text-black dark:text-white resize-none w-full py-4 text-4xl font-extrabold md:text-5xl xl:text-6xl bg-transparent"
             rows={3}
