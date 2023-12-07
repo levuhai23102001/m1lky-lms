@@ -1,11 +1,11 @@
 import React, { FC, useState } from "react";
-import { BsChevronDown, BsChevronUp } from "react-icons/bs";
+import { HiMinus, HiPlus } from "react-icons/hi";
 import { MdOutlineOndemandVideo } from "react-icons/md";
 
 type Props = {
   data: any;
   activeVideo?: number;
-  setActiveVideo?: number;
+  setActiveVideo: (activeVideo: number) => void;
   isDemo?: boolean;
 };
 
@@ -67,9 +67,9 @@ const CourseContentList: FC<Props> = (props) => {
                   onClick={() => toggleSection(section)}
                 >
                   {isSectionVisible ? (
-                    <BsChevronUp size={20} />
+                    <HiMinus size={20} />
                   ) : (
-                    <BsChevronDown size={20} />
+                    <HiPlus size={20} />
                   )}
                 </button>
               </div>
