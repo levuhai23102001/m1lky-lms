@@ -1,4 +1,3 @@
-import { getAllCourseAdmin } from "./../../../../../../m1lky-server/controllers/course.controller";
 import { apiSlice } from "../api/apiSlice";
 
 export const coursesApi = apiSlice.injectEndpoints({
@@ -54,6 +53,26 @@ export const coursesApi = apiSlice.injectEndpoints({
         credentials: "include" as const,
       }),
     }),
+    addNewQuestion: builder.mutation({
+      query: ({ question, courseId, contentId }) => ({
+        url: "courses/add-question",
+        method: "PUT",
+        body: {
+          question,
+          courseId,
+          contentId,
+        },
+        credentials: "include" as const,
+      }),
+    }),
+    addNewAnswer: builder.mutation({
+      query: ({ answer, courseId, contentId, questionId }) => ({
+        url: "courses/add-answer",
+        method: "PUT",
+        body: { answer, courseId, contentId, questionId },
+        credentials: "include" as const,
+      }),
+    }),
   }),
 });
 
@@ -65,4 +84,6 @@ export const {
   useEditCourseMutation,
   useGetCourseDetailsQuery,
   useGetCourseContentQuery,
+  useAddNewQuestionMutation,
+  useAddNewAnswerMutation,
 } = coursesApi;
