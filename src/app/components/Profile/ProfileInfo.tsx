@@ -20,8 +20,11 @@ const ProfileInfo: FC<Props> = ({ user, avatar }) => {
   const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation();
   const [updateProfile, { isSuccess: success, error: updateError }] =
     useUpdateProfileMutation();
-  const [loadUser, setLoadUser] = useState(false);
-  const {} = useLoadUserQuery(undefined, { skip: loadUser ? false : true });
+  const {
+    data: userData,
+    isLoading,
+    refetch,
+  } = useLoadUserQuery(undefined, {});
 
   const imageHandler = (e: any) => {
     const fileReader = new FileReader();
@@ -36,7 +39,7 @@ const ProfileInfo: FC<Props> = ({ user, avatar }) => {
 
   useEffect(() => {
     if (isSuccess || success) {
-      setLoadUser(true);
+      refetch();
     }
     if (error || updateError) {
       console.log(error);
@@ -58,7 +61,9 @@ const ProfileInfo: FC<Props> = ({ user, avatar }) => {
         <div className="relative">
           <Image
             src={
-              user?.avatar || avatar ? user.avatar.url || avatar : avatarIcon
+              userData?.user?.avatar || avatar
+                ? userData?.user.avatar.url || avatar
+                : avatarIcon
             }
             alt="avatar icon"
             width={120}

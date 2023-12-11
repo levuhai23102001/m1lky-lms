@@ -9,7 +9,6 @@ import MModal from "../Modal/MModal";
 import Login from "../../components/Auth/Login";
 import SignUp from "../../components/Auth/SignUp";
 import Verification from "../../components/Auth/Verification";
-import { useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import avatar from "../../../../public/assets/avatar.jpg";
@@ -18,6 +17,7 @@ import {
   useSocialAuthMutation,
 } from "@/app/redux/features/auth/authApi";
 import { toast } from "react-toastify";
+import { useLoadUserQuery } from "@/app/redux/features/api/apiSlice";
 
 type Props = {
   open: boolean;
@@ -30,33 +30,40 @@ type Props = {
 const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
-  const { user } = useSelector((state: any) => state.auth);
+  const {
+    data: userData,
+    isLoading,
+    refetch,
+  } = useLoadUserQuery(undefined, {});
   const { data } = useSession();
   const [socialAuth, { isSuccess }] = useSocialAuthMutation();
   const [logout, setLogout] = useState(false);
   const {} = useLogoutQuery(undefined, {
-    skip: logout ? false : true,
+    skip: !logout ? true : false,
   });
 
   useEffect(() => {
-    if (!user) {
-      if (data) {
-        socialAuth({
-          email: data?.user?.email,
-          name: data?.user?.name,
-          avatar: data?.user?.image,
-        });
+    if (!isLoading) {
+      if (!userData) {
+        if (data) {
+          socialAuth({
+            email: data?.user?.email,
+            name: data?.user?.name,
+            avatar: data?.user?.image,
+          });
+          refetch();
+        }
       }
       if (data === null) {
+        if (isSuccess) {
+          toast.success("Login successfully!");
+        }
+      }
+      if (data === null && !isLoading && !userData) {
         setLogout(true);
       }
     }
-    if (data === null) {
-      if (isSuccess) {
-        toast.success("Login successfully!");
-      }
-    }
-  }, [data, user]);
+  }, [data, userData, isLoading]);
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
@@ -98,7 +105,7 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
               <ThemeSwitcher />
               {/* only for mobile devices */}
               <div className="hidden 800px:flex items-center justify-center mx-4">
-                {user ? (
+                {userData ? (
                   <Link
                     href={"/profile"}
                     className={`${
@@ -108,7 +115,11 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                     }`}
                   >
                     <Image
-                      src={user.avatar ? user.avatar.url : avatar}
+                      src={
+                        userData?.user.avatar
+                          ? userData.user.avatar.url
+                          : avatar
+                      }
                       alt="avatar"
                       width={30}
                       height={30}
@@ -143,7 +154,7 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
             <div className="w-[65%] fixed z-[99999] h-screen bg-white dark:bg-slate-900 top-0 right-0">
               <NavItems activeItem={activeItem} isMobile={true} />
               <div className="w-full flex justify-center">
-                {user ? (
+                {userData ? (
                   <Link
                     href={"/profile"}
                     className={`${
@@ -153,7 +164,11 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                     }`}
                   >
                     <Image
-                      src={user.avatar ? user.avatar.url : avatar}
+                      src={
+                        userData?.user.avatar
+                          ? userData.user.avatar.url
+                          : avatar
+                      }
                       alt="avatar"
                       width={30}
                       height={30}
@@ -185,6 +200,7 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
               setRoute={setRoute}
               activeItem={activeItem}
               component={Login}
+              refetch={refetch}
             />
           )}
         </>

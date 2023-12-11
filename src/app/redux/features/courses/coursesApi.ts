@@ -1,3 +1,4 @@
+import { addReplyToReview } from "./../../../../../../m1lky-server/controllers/course.controller";
 import { apiSlice } from "../api/apiSlice";
 
 export const coursesApi = apiSlice.injectEndpoints({
@@ -73,6 +74,26 @@ export const coursesApi = apiSlice.injectEndpoints({
         credentials: "include" as const,
       }),
     }),
+    addReview: builder.mutation({
+      query: ({ review, courseId, rating }) => ({
+        url: `courses/add-review/${courseId}`,
+        method: "PUT",
+        body: { review, rating },
+        credentials: "include" as const,
+      }),
+    }),
+    addReplyToReview: builder.mutation({
+      query: ({ comment, courseId, reviewId }: any) => ({
+        url: "courses/add-reply",
+        method: "PUT",
+        body: {
+          comment,
+          courseId,
+          reviewId,
+        },
+        credentials: "include" as const,
+      }),
+    }),
   }),
 });
 
@@ -86,4 +107,6 @@ export const {
   useGetCourseContentQuery,
   useAddNewQuestionMutation,
   useAddNewAnswerMutation,
+  useAddReviewMutation,
+  useAddReplyToReviewMutation,
 } = coursesApi;

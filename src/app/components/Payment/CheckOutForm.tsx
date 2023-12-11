@@ -9,19 +9,24 @@ import {
 } from "@stripe/react-stripe-js";
 import { toast } from "react-toastify";
 import { redirect } from "next/navigation";
+import socketIO from "socket.io-client";
+const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URL || "";
+const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 
 type Props = {
   data: any;
   setOpen: any;
+  user: any;
 };
 
-const CheckOutForm = ({ data, setOpen }: Props) => {
+const CheckOutForm = ({ data, setOpen, user }: Props) => {
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = useState<any>("");
   const [createOrder, { data: orderData, error }] = useCreateOrderMutation();
-  const [loadUser, setLoadUser] = useState(false);
-  const {} = useLoadUserQuery({ skip: loadUser ? false : true });
+  const { data: userData, refetch } = useLoadUserQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: any) => {
@@ -45,7 +50,12 @@ const CheckOutForm = ({ data, setOpen }: Props) => {
 
   useEffect(() => {
     if (orderData) {
-      setLoadUser(true);
+      refetch();
+      socketId.emit("notification", {
+        title: "New Order",
+        message: `You have a new order from ${data.name}`,
+        userId: user._id,
+      });
       redirect(`/course-access/${data._id}`);
     }
     if (error) {
@@ -54,7 +64,7 @@ const CheckOutForm = ({ data, setOpen }: Props) => {
         toast.error(errorMessage.data.message);
       }
     }
-  }, [orderData, error, data._id]);
+  }, [orderData, error]);
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
@@ -62,7 +72,14 @@ const CheckOutForm = ({ data, setOpen }: Props) => {
       <PaymentElement id="payment-element" />
       <button disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text" className={`${styles.button} mt-4 !h-[35px]`}>
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+          {isLoading ? (
+            <div
+              className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+              role="status"
+            ></div>
+          ) : (
+            "Pay now"
+          )}
         </span>
       </button>
       {/* Show any error or success messages */}

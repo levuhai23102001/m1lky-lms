@@ -12,8 +12,6 @@ const Courses = (props: Props) => {
     setCourses(data?.courses);
   }, [data]);
 
-  console.log(data);
-
   return (
     <div>
       <div className={`w-[90%] 800px:w-[80%] m-auto`}>

@@ -5,6 +5,7 @@ import Heading from "@/app/utils/Heading";
 import CourseContentMedia from "./CourseContentMedia";
 import Navbar from "../Navbar/Navbar";
 import CourseContentList from "./CourseContentList";
+import Footer from "../Footer/Footer";
 
 type Props = {
   id: string;
@@ -60,6 +61,7 @@ const CourseContent = ({ id, user }: Props) => {
               />
             </div>
           </div>
+          <Footer />
         </>
       )}
     </>

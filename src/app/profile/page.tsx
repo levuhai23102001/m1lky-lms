@@ -5,6 +5,8 @@ import Heading from "../utils/Heading";
 import Navbar from "../components/Navbar/Navbar";
 import Profile from "../components/Profile/Profile";
 import { useSelector } from "react-redux";
+import { useLoadUserQuery } from "../redux/features/api/apiSlice";
+import Footer from "../components/Footer/Footer";
 
 type Props = {};
 
@@ -12,7 +14,9 @@ const Page: FC<Props> = (props: Props) => {
   const [open, setOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(5);
   const [route, setRoute] = useState("Login");
-  const { user } = useSelector((state: any) => state.auth);
+  // const { user } = useSelector((state: any) => state.auth);
+  const { data: userData } = useLoadUserQuery(undefined, {});
+  const user = userData?.user;
 
   return (
     <div>
@@ -30,6 +34,7 @@ const Page: FC<Props> = (props: Props) => {
           setRoute={setRoute}
         />
         <Profile user={user} />
+        <Footer />
       </Protected>
     </div>
   );

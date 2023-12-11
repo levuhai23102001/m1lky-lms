@@ -1,4 +1,5 @@
 import React, { FC, useState } from "react";
+import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { HiMinus, HiPlus } from "react-icons/hi";
 import { MdOutlineOndemandVideo } from "react-icons/md";
 
@@ -53,7 +54,10 @@ const CourseContentList: FC<Props> = (props) => {
         const sectionContentHours: number = sectionVideoLength / 60;
         return (
           <div
-            className={`${!props.isDemo && "border-b border-[#ffffff8e] pb-2"}`}
+            className={`${
+              !props.isDemo &&
+              "border-b dark:border-[#ffffff8e] border-[#000] pb-2"
+            }`}
             key={section}
           >
             <div className="w-full flex">
@@ -67,9 +71,9 @@ const CourseContentList: FC<Props> = (props) => {
                   onClick={() => toggleSection(section)}
                 >
                   {isSectionVisible ? (
-                    <HiMinus size={20} />
+                    <BsChevronUp size={20} />
                   ) : (
-                    <HiPlus size={20} />
+                    <BsChevronDown size={20} />
                   )}
                 </button>
               </div>
@@ -90,7 +94,9 @@ const CourseContentList: FC<Props> = (props) => {
                   return (
                     <div
                       className={`w-full ${
-                        videoIndex === props.activeVideo ? "bg-slate-800" : ""
+                        videoIndex === props.activeVideo
+                          ? "bg-slate-600 bg-opacity-20 backdrop-blur shadow-[bg-slate-700] rounded shadow-inner"
+                          : ""
                       } cursor-pointer transition-all p-2`}
                       key={index}
                       onClick={() =>
