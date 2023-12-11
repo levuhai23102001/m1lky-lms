@@ -20,6 +20,9 @@ COURSE DETAILS
 COURSE CONTENT PAGE
 ![image](https://github.com/levuhai23102001/m1lky-lms/assets/58142935/1a945023-71af-4bb4-ac33-bbae60240580)
 
+QUESTION & ANSWER FUNCTINALITIES
+![image](https://github.com/levuhai23102001/m1lky-lms/assets/58142935/8da7e621-97dc-40a9-8ce2-12fcca849190)
+
 ADMIN PAGE
 ![image](https://github.com/levuhai23102001/m1lky-lms/assets/58142935/3976a277-1384-41b5-b949-af338d13cf41)
 
