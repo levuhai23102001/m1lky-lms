@@ -17,7 +17,7 @@ const page = (props: Props) => {
           description="M1LKY is an online learning and teaching marketplace with over 213000 courses and 62 million students. Learn programming, marketing, data science and more."
           keywords="Programming,MERN,Redux,Machine Learning"
         />
-        <div className="flex">
+        <div className="flex min-h-screen">
           <div className="1500px:w-[18%] w-1/5">
             <AdminSidebar />
           </div>

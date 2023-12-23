@@ -28,6 +28,7 @@ import Image from "next/image";
 import { useTheme } from "next-themes";
 
 import "./adminSidebar.css";
+import { useLogoutQuery } from "@/app/redux/features/auth/authApi";
 
 interface ItemProps {
   title: string;
@@ -40,8 +41,8 @@ interface ItemProps {
 const Item: FC<ItemProps> = ({ title, to, icon, selected, setSelected }) => {
   return (
     <MenuItem
-      active={selected === title}
-      onClick={() => setSelected(title)}
+      active={window.location.pathname === to}
+      onClick={() => setSelected(to)}
       icon={icon}
     >
       <Typography className="!text-[16px] !font-Poppins">{title}</Typography>
@@ -56,6 +57,9 @@ const AdminSidebar = () => {
   const [selected, setSelected] = useState("Dashboard");
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  const {} = useLogoutQuery(undefined, {
+    skip: !logout ? true : false,
+  });
 
   useEffect(() => setMounted(true), []);
 
@@ -299,13 +303,19 @@ const AdminSidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
-              title="Log Out"
-              to="/admin/logout"
-              icon={<ExitToAppIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+            <Typography
+              className="!text-[16px] !font-Poppins pro-menu-item"
+              onClick={handleLogout}
+            >
+              <div className="pro-inner-item flex items-center">
+                <span className="pro-icon-wrapper">
+                  <ExitToAppIcon />
+                </span>
+                <Typography className="!text-[16px] !font-Poppins">
+                  Logout
+                </Typography>
+              </div>
+            </Typography>
           </Box>
         </Menu>
         <p className="w-full text-[12px] py-6 flex justify-center text-center text-black dark:text-white">

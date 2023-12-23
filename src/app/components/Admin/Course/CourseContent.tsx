@@ -227,7 +227,7 @@ const CourseContent: FC<Props> = ({
                           setCourseContentData(updatedData);
                         }}
                       />
-                      <div className="mb-3">
+                      <div className="my-3">
                         <label className={styles.label}>
                           Video Length (in minutes)
                         </label>

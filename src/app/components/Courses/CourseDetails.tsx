@@ -3,7 +3,11 @@ import CoursePlayer from "@/app/utils/CoursePlayer";
 import Ratings from "@/app/utils/Ratings";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { IoCheckmarkDoneOutline, IoCloseOutline } from "react-icons/io5";
+import {
+  IoCartOutline,
+  IoCheckmarkDoneOutline,
+  IoCloseOutline,
+} from "react-icons/io5";
 import { format } from "timeago.js";
 import CourseContentList from "./CourseContentList";
 import { Elements } from "@stripe/react-stripe-js";
@@ -43,7 +47,7 @@ const CourseDetails = ({
     setUser(userData?.user);
   }, [userData]);
 
-  const handleOrder = (e: any) => {
+  const handleOrder = () => {
     if (user) {
       setOpen(true);
     } else {
@@ -52,8 +56,17 @@ const CourseDetails = ({
     }
   };
 
+  const appearance = {
+    theme: "stripe",
+  };
+
+  const options: any = {
+    clientSecret,
+    appearance,
+  };
+
   return (
-    <div>
+    <div className="w-full">
       <div className="w-[90%] 800px:w-[90%] m-auto py-5">
         <div className="w-full flex flex-col-reverse 800px:flex-row">
           <div className="w-full 800px:w-[65%] 800px:pr-5">
@@ -138,7 +151,7 @@ const CourseDetails = ({
                 <div className="mb-2 800px:mb-[unset]"></div>
                 <h5 className="text-[25px] font-Poppins text-black dark:text-white">
                   {Number.isInteger(data?.ratings)
-                    ? data?.ratings.toFixed(2)
+                    ? data?.ratings.toFixed(1)
                     : data?.ratings.toFixed(1)}{" "}
                   Course Rating • {data?.reviews?.length} Reviews
                 </h5>
@@ -222,7 +235,7 @@ const CourseDetails = ({
                   {data.price === 0 ? "Free" : data.price + "$"}
                 </h1>
                 <h5 className="pl-3 mt-2 text-[20px] text-black dark:text-white line-through opacity-80">
-                  {data.estimatedPrice}
+                  {data.estimatedPrice}$
                 </h5>
                 <h4 className="pl-5 pt-4 text-[22px] text-black dark:text-white">
                   {discountPercentPrice}% Off
@@ -264,18 +277,42 @@ const CourseDetails = ({
       </div>
       <>
         {open && (
-          <div className="w-full h-screen bg-[#00000036] fixed top-0 left-0 z-50 flex items-center justify-center">
-            <div className="w-[500px] min-h-[500px] bg-white rounded-xl shadow p-3">
-              <div className="w-full flex justify-end">
+          <div
+            className={`w-full h-screen bg-[#0000007d] fixed top-0 left-0 right-0 bottom-0 z-[99999] flex items-center justify-center`}
+          >
+            <div className="w-full h-[calc(100%-80px)] bg-white rounded-t-xl shadow-xl flex relative animate-fade-up animate-duration-500 animate-delay-500 animate-ease-in-out overflow-auto left-0 top-[40px]">
+              <div className="absolute top-2 right-2">
                 <IoCloseOutline
                   size={40}
                   className="text-black cursor-pointer"
                   onClick={() => setOpen(false)}
                 />
               </div>
-              <div className="w-full">
+              <div className="w-[50%] flex justify-center">
+                <div className="mt-20">
+                  <div className="mb-4 flex items-center text-black gap-1">
+                    <IoCartOutline className="text-black" size={20} /> •
+                    <span>Checkout</span>
+                  </div>
+
+                  <h3 className="text-[18px] font-Poppins font-[500] text-[#1a1a1a99]">
+                    {data.name}
+                  </h3>
+                  <h1 className="text-[36px] font-Poppins font-[600] text-black mb-6">
+                    ${data.price.toFixed(2)}
+                  </h1>
+                  <Image
+                    src={data.thumbnail.url}
+                    alt=""
+                    width={400}
+                    height={400}
+                    className="rounded"
+                  />
+                </div>
+              </div>
+              <div className="w-[50%] flex items-center justify-center shadow-2xl">
                 {stripePromise && clientSecret && (
-                  <Elements stripe={stripePromise} options={{ clientSecret }}>
+                  <Elements stripe={stripePromise} options={options}>
                     <CheckOutForm setOpen={setOpen} data={data} user={user} />
                   </Elements>
                 )}

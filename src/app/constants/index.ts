@@ -8,6 +8,10 @@ export const navItemsData = [
     path: "/courses",
   },
   {
+    title: "Meeting",
+    path: "https://m1lky-meet-client.vercel.app/",
+  },
+  {
     title: "About",
     path: "/about",
   },

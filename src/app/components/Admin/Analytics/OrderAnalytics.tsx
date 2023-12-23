@@ -19,21 +19,6 @@ type Props = {
 const OrderAnalytics = ({ isDashboard }: Props) => {
   const { data, isLoading } = useGetOrdersAnalyticsQuery({});
 
-  //   const analyticsData = [
-  //     { name: "Page A", count: 242 },
-  //     { name: "Page B", count: 4342 },
-  //     { name: "Page C", count: 5554 },
-  //     { name: "Page D", count: 742 },
-  //     { name: "Page E", count: 2343 },
-  //     { name: "Page F", count: 793 },
-  //     { name: "Page G", count: 2879 },
-  //     { name: "Page H", count: 5007 },
-  //     { name: "Page I", count: 7890 },
-  //     { name: "Page O", count: 2756 },
-  //     { name: "Page M", count: 5660 },
-  //     { name: "Page N", count: 7666 },
-  //   ];
-
   const analyticsData: any = [];
 
   data &&
@@ -49,7 +34,7 @@ const OrderAnalytics = ({ isDashboard }: Props) => {
         <div className={`${isDashboard ? "h-[30vh]" : "h-screen"}`}>
           <div
             className={`${
-              isDashboard ? "mt-[0px] pl-[40px] mb-2" : "mt-[50px]"
+              isDashboard ? "mt-[0px] pl-[40px] mb-2" : "mt-[65px]"
             }`}
           >
             <h1

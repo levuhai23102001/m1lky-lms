@@ -82,7 +82,7 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
   };
 
   return (
-    <div className="w-full fixed top-0 left-0 z-[9999] backdrop-blur bg-white/50 supports-backdrop-blur:bg-white/60 dark:bg-transparent transition duration-300">
+    <div className="w-full fixed top-0 left-0 z-[9999] backdrop-blur bg-transparent supports-backdrop-blur:bg-white/60 dark:bg-transparent transition duration-300">
       <div
         className={`${
           active
@@ -95,9 +95,18 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
             <div>
               <Link
                 href={"/"}
-                className={`text-[25px] font-Poppins font-[600] text-black dark:text-white whitespace-nowrap`}
+                className={`text-[25px] font-Poppins font-[600] text-black dark:text-white whitespace-nowrap flex items-center`}
               >
-                M 1 L K Y
+                <Image
+                  src={require("../../favicon.ico")}
+                  alt=""
+                  width={50}
+                  height={50}
+                  className="w-[50px] h-[50px] object-cover"
+                />
+                <span className="ml-2 text-transparent bg-clip-text bg-gradient-to-r from-[#5FBDFF] to-[#ff3377] hidden 700px:block">
+                  M 1 L K Y
+                </span>
               </Link>
             </div>
             <div className="flex items-center">
@@ -109,7 +118,7 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                   <Link
                     href={"/profile"}
                     className={`${
-                      activeItem === 5
+                      activeItem === 6
                         ? "w-[30px] h-[30px] rounded-full border-solid border-2 border-[#96EFFF] dark:border-[#ff3377] overflow-hidden"
                         : "w-[30px] h-[30px] rounded-full border-solid border-2 border-[#000] dark:border-[#fff] overflow-hidden"
                     }`}

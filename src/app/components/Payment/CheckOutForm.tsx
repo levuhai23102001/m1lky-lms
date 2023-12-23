@@ -15,7 +15,7 @@ const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 
 type Props = {
   data: any;
-  setOpen: any;
+  setOpen?: any;
   user: any;
 };
 
@@ -49,6 +49,20 @@ const CheckOutForm = ({ data, setOpen, user }: Props) => {
   };
 
   useEffect(() => {
+    if (!stripe) {
+      return;
+    }
+
+    const clientSecret = new URLSearchParams(window.location.search).get(
+      "payment_intent_client_secret"
+    );
+
+    if (!clientSecret) {
+      return;
+    }
+  }, [stripe]);
+
+  useEffect(() => {
     if (orderData) {
       refetch();
       socketId.emit("notification", {
@@ -66,29 +80,48 @@ const CheckOutForm = ({ data, setOpen, user }: Props) => {
     }
   }, [orderData, error]);
 
+  const paymentElementOptions: any = {
+    layout: "tabs",
+  };
+
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
-      <LinkAuthenticationElement id="link-authentication-element" />
-      <PaymentElement id="payment-element" />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
-        <span id="button-text" className={`${styles.button} mt-4 !h-[35px]`}>
-          {isLoading ? (
-            <div
-              className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-              role="status"
-            ></div>
-          ) : (
-            "Pay now"
-          )}
-        </span>
-      </button>
-      {/* Show any error or success messages */}
-      {message && (
-        <div id="payment-message" className="text-[#ff3377] font-Poppins pt-2">
-          {message}
-        </div>
-      )}
-    </form>
+    <>
+      <form id="payment-form" onSubmit={handleSubmit} className="w-[60%]">
+        <LinkAuthenticationElement
+          id="link-authentication-element"
+          className="mb-4"
+        />
+        <PaymentElement id="payment-element" options={paymentElementOptions} />
+        <button
+          disabled={isLoading || !stripe || !elements}
+          id="submit"
+          className="mt-4 h-[40px] w-full flex items-center justify-center bg-[#ff3377] text-center text-white rounded cursor-pointer"
+        >
+          <span
+            id="button-text"
+            className="text-[16px] font-Poppins font-[600]"
+          >
+            {isLoading ? (
+              <div
+                className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                role="status"
+              ></div>
+            ) : (
+              "Pay now"
+            )}
+          </span>
+        </button>
+        {/* Show any error or success messages */}
+        {message && (
+          <div
+            id="payment-message"
+            className="text-[#ff3377] font-Poppins pt-2 text-[14px]"
+          >
+            {message}
+          </div>
+        )}
+      </form>
+    </>
   );
 };
 

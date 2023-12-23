@@ -47,7 +47,7 @@ const UserAnalytics = ({ isDashboard }: Props) => {
         <div
           className={`${
             !isDashboard
-              ? "mt-[50px]"
+              ? "mt-[65px]"
               : "mt-[50px] dark:bg-[#111c43] shadow-sm pb-5 rounded-sm"
           }`}
         >

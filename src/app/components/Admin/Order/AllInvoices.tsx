@@ -34,7 +34,7 @@ const AllInvoices = ({ isDashboard }: Props) => {
           ...item,
           userName: user?.name,
           userEmail: user?.email,
-          title: course?.title,
+          title: course?.name,
           price: "$" + course?.price,
         };
       });

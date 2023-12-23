@@ -59,7 +59,7 @@ const DashboardHeader: FC<Props> = ({ open, setOpen }) => {
   };
 
   return (
-    <div className="w-full flex items-center justify-end p-6 fixed top-0 right-0">
+    <div className="w-full flex items-center justify-end py-4 px-6 fixed top-0 right-0 z-[999] backdrop-blur bg-transparent supports-backdrop-blur:bg-white/60 dark:bg-transparent">
       <ThemeSwitcher />
       <div
         className="relative cursor-pointer m-2"

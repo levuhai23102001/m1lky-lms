@@ -213,7 +213,7 @@ const CourseContentMedia = ({
           }
         >
           <AiOutlineArrowLeft className="mr-2" />
-          Previous Lesson
+          Prev Lesson
         </div>
         <div
           className={`${styles.button} !w-[unset] !min-h-[40px] !py-[unset]  ${

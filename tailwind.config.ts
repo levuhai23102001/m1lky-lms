@@ -28,11 +28,12 @@ const config: Config = {
         "1300px": "1300px",
         "1500px": "1500px",
         "800px": "800px",
+        "700px": "700px",
         "400px": "400px",
         "300px": "300px",
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animated")],
 };
 export default config;

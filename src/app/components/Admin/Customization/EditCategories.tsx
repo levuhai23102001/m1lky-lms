@@ -121,6 +121,9 @@ const EditCategories = (props: Props) => {
               onClick={handleNewCategories}
             />
           </div>
+          <br />
+          <br />
+          <br />
           <div
             className={`w-[100px] min-h-[40px] h-[40px] inline-flex items-center justify-center py-2 px-6 dark:text-white text-black bg-[#cccccc34] z-[999] ${
               areCategoriesUnchanged(data?.layout.categories, categories) ||

@@ -22,7 +22,7 @@ const Page = (props: Props) => {
       <Navbar
         open={open}
         setOpen={setOpen}
-        activeItem={3}
+        activeItem={4}
         route={route}
         setRoute={setRoute}
       />

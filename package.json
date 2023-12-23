@@ -31,6 +31,7 @@
     "react-toastify": "^9.1.3",
     "recharts": "^2.10.1",
     "socket.io-client": "^4.7.2",
+    "tailwindcss-animated": "^1.0.1",
     "timeago.js": "^4.0.2",
     "yup": "^1.3.2"
   },
