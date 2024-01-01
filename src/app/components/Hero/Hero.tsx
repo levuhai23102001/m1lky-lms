@@ -16,7 +16,7 @@ const Hero: FC<Props> = (props) => {
     if (search === "") {
       return;
     } else {
-      router.push(`/courses?title=${search}`);
+      router.push(`/courses/search?title=${search}`);
     }
   };
 

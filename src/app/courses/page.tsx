@@ -9,13 +9,18 @@ import Navbar from "../components/Navbar/Navbar";
 import Image from "next/image";
 import CourseCard from "../components/Cards/CourseCard";
 import Footer from "../components/Footer/Footer";
-
+import { useRouter } from "next/navigation";
 type Props = {};
 
 const Page = (props: Props) => {
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const search = searchParams?.get("title");
-  const { data, isLoading } = useGetAllCourseUserQuery(undefined, {});
+  const pageNumber = parseInt(searchParams?.get("page") || "1", 10);
+  const limit = 1;
+  const { data, isLoading } = useGetAllCourseUserQuery({
+    pageNumber,
+    limit,
+  });
   const { data: categoriesData } = useGetLayoutDataQuery("Categories", {});
   const [route, setRoute] = useState("Login");
   const [open, setOpen] = useState(false);
@@ -31,16 +36,14 @@ const Page = (props: Props) => {
         data?.courses.filter((item: any) => item.categories === category)
       );
     }
-    if (search) {
-      setCourses(
-        data?.courses.filter((item: any) =>
-          item.name.toLowerCase().includes(search.toLowerCase())
-        )
-      );
-    }
-  }, [data, category, search]);
+  }, [data, category]);
 
   const categories = categoriesData?.layout.categories;
+
+  const handlePageChange = (newPage: number) => {
+    // Update the URL parameters to reflect the new page
+    router.push(`/courses?page=${newPage}`);
+  };
 
   return (
     <div className="pt-20">
@@ -90,7 +93,7 @@ const Page = (props: Props) => {
                   </div>
                 ))}
             </div>
-            {courses && courses.length === 0 && (
+            {/* {courses && courses.length === 0 && (
               <div className="flex items-center justify-center flex-col w-full h-[50vh] mt-4">
                 <Image
                   src={require("../../../public/assets/no_data.png")}
@@ -104,7 +107,7 @@ const Page = (props: Props) => {
                     : "No courses found in this category. Please try another one."}
                 </p>
               </div>
-            )}
+            )} */}
             <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 lg:gap-[25px] 1500px:grid-cols-4 1500px:gap-[35px] mb-12 border-0">
               {courses &&
                 courses.map((item: any, index: number) => (
@@ -112,6 +115,24 @@ const Page = (props: Props) => {
                     <CourseCard item={item} key={index} />
                   </>
                 ))}
+            </div>
+            <div className="flex justify-center mt-4">
+              {Array.from(
+                { length: data?.pagination.totalPages || 1 },
+                (_, index) => index + 1
+              ).map((page) => (
+                <button
+                  key={page}
+                  className={`mx-1 px-3 py-2 rounded-full focus:outline-none ${
+                    page === data?.pagination.currentPage
+                      ? "bg-[#5fbdff] text-white"
+                      : "bg-transparent border dark:border-[#ff3377] border-[#5fbdff] dark:text-white text-black"
+                  }`}
+                  onClick={() => handlePageChange(page)}
+                >
+                  {page}
+                </button>
+              ))}
             </div>
           </div>
           <Footer />

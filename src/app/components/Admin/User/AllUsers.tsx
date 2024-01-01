@@ -156,14 +156,14 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
         <Loader />
       ) : (
         <Box m="20px">
-          <div className="w-full flex justify-end">
+          {/* <div className="w-full flex justify-end">
             <div
               className={`${styles.button} !w-[180px] !text-[14px]`}
               onClick={() => setActive(!active)}
             >
               Add New Member
             </div>
-          </div>
+          </div> */}
           <Box
             m="40px 0 0 0"
             height="80vh"

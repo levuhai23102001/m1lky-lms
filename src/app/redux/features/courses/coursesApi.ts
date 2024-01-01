@@ -1,4 +1,4 @@
-import { addReplyToReview } from "./../../../../../../m1lky-server/controllers/course.controller";
+import { searchCourse } from "./../../../../../../m1lky-server/controllers/course.controller";
 import { apiSlice } from "../api/apiSlice";
 
 export const coursesApi = apiSlice.injectEndpoints({
@@ -19,8 +19,10 @@ export const coursesApi = apiSlice.injectEndpoints({
       }),
     }),
     getAllCourseUser: builder.query({
-      query: () => ({
-        url: "courses/get-courses",
+      query: ({ pageNumber, limit }) => ({
+        url: `courses/get-courses${
+          pageNumber && limit ? `?page=${pageNumber}&limit=${limit}` : ""
+        }`,
         method: "GET",
         credentials: "include" as const,
       }),
@@ -94,6 +96,13 @@ export const coursesApi = apiSlice.injectEndpoints({
         credentials: "include" as const,
       }),
     }),
+    searchCourse: builder.query({
+      query: (title) => ({
+        url: `${title === "" ? null : `courses/search?title=${title}`}`,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+    }),
   }),
 });
 
@@ -109,4 +118,5 @@ export const {
   useAddNewAnswerMutation,
   useAddReviewMutation,
   useAddReplyToReviewMutation,
+  useSearchCourseQuery,
 } = coursesApi;

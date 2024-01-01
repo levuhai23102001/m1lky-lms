@@ -289,7 +289,7 @@ const CourseDetails = ({
                 />
               </div>
               <div className="w-[50%] flex justify-center">
-                <div className="mt-20">
+                <div className="mt-20 px-40">
                   <div className="mb-4 flex items-center text-black gap-1">
                     <IoCartOutline className="text-black" size={20} /> •
                     <span>Checkout</span>

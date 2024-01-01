@@ -331,65 +331,69 @@ const CourseContentMedia = ({
         <div className="w-full">
           {!isReviewExists && (
             <>
-              <div className="w-full flex">
-                <Image
-                  src={user.avatar ? user.avatar.url : avatar}
-                  width={50}
-                  height={50}
-                  alt=""
-                  className="rounded-full w-[50px] h-[50px] object-cover"
-                />
-                <div className="w-full">
-                  <h5 className="pl-3 text-[20px] font-[500] dark:text-white text-black">
-                    Give a Rating <span className="text-[#ff3377]">*</span>
-                  </h5>
-                  <div className="w-full flex ml-2 pb-3">
-                    {[1, 2, 3, 4, 5].map((i) =>
-                      rating >= i ? (
-                        <AiFillStar
-                          key={i}
-                          className="mr-1 cursor-pointer"
-                          color="rgb(246,186,0)"
-                          size={25}
-                          onClick={() => setRating(i)}
-                        />
-                      ) : (
-                        <AiOutlineStar
-                          key={i}
-                          className="mr-1 cursor-pointer"
-                          color="rgb(246,186,0)"
-                          size={25}
-                          onClick={() => setRating(i)}
-                        />
-                      )
-                    )}
+              {user.role === "user" && (
+                <>
+                  <div className="w-full flex">
+                    <Image
+                      src={user.avatar ? user.avatar.url : avatar}
+                      width={50}
+                      height={50}
+                      alt=""
+                      className="rounded-full w-[50px] h-[50px] object-cover"
+                    />
+                    <div className="w-full">
+                      <h5 className="pl-3 text-[20px] font-[500] dark:text-white text-black">
+                        Give a Rating <span className="text-[#ff3377]">*</span>
+                      </h5>
+                      <div className="w-full flex ml-2 pb-3">
+                        {[1, 2, 3, 4, 5].map((i) =>
+                          rating >= i ? (
+                            <AiFillStar
+                              key={i}
+                              className="mr-1 cursor-pointer"
+                              color="rgb(246,186,0)"
+                              size={25}
+                              onClick={() => setRating(i)}
+                            />
+                          ) : (
+                            <AiOutlineStar
+                              key={i}
+                              className="mr-1 cursor-pointer"
+                              color="rgb(246,186,0)"
+                              size={25}
+                              onClick={() => setRating(i)}
+                            />
+                          )
+                        )}
+                      </div>
+                      <textarea
+                        name=""
+                        value={review}
+                        onChange={(e) => setReview(e.target.value)}
+                        id=""
+                        cols={40}
+                        rows={5}
+                        placeholder="Write your review..."
+                        className="outline-none bg-transparent ml-3 border dark:border-[#ffffff57] border-[#000000] 800px:w-full p-2 rounded w-[90%] 800px:text-[18px] font-Poppins dark:text-white text-black"
+                      ></textarea>
+                    </div>
                   </div>
-                  <textarea
-                    name=""
-                    value={review}
-                    onChange={(e) => setReview(e.target.value)}
-                    id=""
-                    cols={40}
-                    rows={5}
-                    placeholder="Write your review..."
-                    className="outline-none bg-transparent ml-3 border dark:border-[#ffffff57] border-[#000000] 800px:w-full p-2 rounded w-[90%] 800px:text-[18px] font-Poppins dark:text-white text-black"
-                  ></textarea>
-                </div>
-              </div>
-              <div className="w-full flex justify-end">
-                <div
-                  className={`!w-[120px] !h-[40px] text-[18px] inline-flex items-center justify-center py-2 px-6 dark:text-white text-black mt-5 rounded font-Poppins ${
-                    review.length === 0
-                      ? "!bg-[#cccccc34]"
-                      : "!bg-[#ff3377] cursor-pointer"
-                  }`}
-                  onClick={
-                    review.length === 0 ? () => null : handleReviewSubmit
-                  }
-                >
-                  Enter
-                </div>
-              </div>
+                  <div className="w-full flex justify-end">
+                    <div
+                      className={`!w-[120px] !h-[40px] text-[18px] inline-flex items-center justify-center py-2 px-6 dark:text-white text-black mt-5 rounded font-Poppins ${
+                        review.length === 0
+                          ? "!bg-[#cccccc34]"
+                          : "!bg-[#ff3377] cursor-pointer"
+                      }`}
+                      onClick={
+                        review.length === 0 ? () => null : handleReviewSubmit
+                      }
+                    >
+                      Enter
+                    </div>
+                  </div>
+                </>
+              )}
             </>
           )}
           <br />
