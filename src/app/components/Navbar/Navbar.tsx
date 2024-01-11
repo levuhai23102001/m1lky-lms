@@ -18,16 +18,16 @@ import {
 } from "@/app/redux/features/auth/authApi";
 import { toast } from "react-toastify";
 import { useLoadUserQuery } from "@/app/redux/features/api/apiSlice";
+import { usePathname } from "next/navigation";
 
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
-  activeItem: number;
   route: string;
   setRoute: (route: string) => void;
 };
 
-const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
+const Navbar: FC<Props> = ({ open, setOpen, route, setRoute }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
   const {
@@ -41,6 +41,7 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
   const {} = useLogoutQuery(undefined, {
     skip: !logout ? true : false,
   });
+  const pathname = usePathname();
 
   useEffect(() => {
     if (!isLoading) {
@@ -110,7 +111,7 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
               </Link>
             </div>
             <div className="flex items-center">
-              <NavItems activeItem={activeItem} isMobile={false} />
+              <NavItems isMobile={false} />
               <ThemeSwitcher />
               {/* only for mobile devices */}
               <div className="hidden 800px:flex items-center justify-center mx-4">
@@ -118,8 +119,8 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                   <Link
                     href={"/profile"}
                     className={`${
-                      activeItem === 6
-                        ? "w-[30px] h-[30px] rounded-full border-solid border-2 border-[#96EFFF] dark:border-[#ff3377] overflow-hidden"
+                      pathname === "/profile"
+                        ? "w-[30px] h-[30px] rounded-full border-solid border-2 border-[#5fbdff] dark:border-[#ff3377] overflow-hidden"
                         : "w-[30px] h-[30px] rounded-full border-solid border-2 border-[#000] dark:border-[#fff] overflow-hidden"
                     }`}
                   >
@@ -161,14 +162,14 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
             id="screen"
           >
             <div className="w-[65%] fixed z-[99999] h-screen bg-white dark:bg-slate-900 top-0 right-0">
-              <NavItems activeItem={activeItem} isMobile={true} />
+              <NavItems isMobile={true} />
               <div className="w-full flex justify-center">
                 {userData ? (
                   <Link
                     href={"/profile"}
                     className={`${
-                      activeItem === 5
-                        ? "w-[30px] h-[30px] rounded-full border-solid border-2 border-[#96EFFF] dark:border-[#ff3377] overflow-hidden"
+                      pathname === "/profile"
+                        ? "w-[30px] h-[30px] rounded-full border-solid border-2 border-[#5fbdff] dark:border-[#ff3377] overflow-hidden"
                         : "w-[30px] h-[30px] rounded-full border-solid border-2 border-[#000] dark:border-[#fff] overflow-hidden"
                     }`}
                   >
@@ -207,7 +208,6 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
               open={open}
               setOpen={setOpen}
               setRoute={setRoute}
-              activeItem={activeItem}
               component={Login}
               refetch={refetch}
             />
@@ -221,7 +221,6 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
               open={open}
               setOpen={setOpen}
               setRoute={setRoute}
-              activeItem={activeItem}
               component={SignUp}
             />
           )}
@@ -234,7 +233,6 @@ const Navbar: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
               open={open}
               setOpen={setOpen}
               setRoute={setRoute}
-              activeItem={activeItem}
               component={Verification}
             />
           )}

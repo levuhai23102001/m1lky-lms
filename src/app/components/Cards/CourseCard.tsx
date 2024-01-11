@@ -17,7 +17,7 @@ const CourseCard: FC<Props> = ({ item, isProfile }) => {
       >
         <div className="w-full h-full dark:bg-slate-500 dark:bg-opacity-20 backdrop-blur border dark:border-[#ffffff1d] border-[#00000015] dark:shadow-[bg-slate-700] rounded-lg p-3 shadow-sm dark:shadow-inner overflow-hidden col-span-1 flex flex-col">
           <Image
-            src={item.thumbnail.url}
+            src={item.thumbnail?.url}
             width={500}
             height={300}
             alt=""

@@ -8,8 +8,6 @@ import Policy from "./Policy";
 type Props = {};
 
 const Page = (props: Props) => {
-  const [route, setRoute] = useState("Login");
-  const [open, setOpen] = useState(false);
   return (
     <div>
       <Heading
@@ -18,13 +16,6 @@ const Page = (props: Props) => {
           "M1LKY is an online learning and teaching marketplace with over 213000 courses and 62 million students. Learn programming, marketing, data science and more."
         }
         keywords="programming community, coding skills, expert insights"
-      />
-      <Navbar
-        open={open}
-        setOpen={setOpen}
-        activeItem={4}
-        route={route}
-        setRoute={setRoute}
       />
       <Policy />
       <Footer />

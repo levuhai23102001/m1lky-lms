@@ -15,8 +15,6 @@ const Page = (props: Props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const searchQuery = searchParams?.get("title");
-  const [route, setRoute] = useState("Login");
-  const [open, setOpen] = useState(false);
   const [courses, setCourses] = useState([]);
 
   // Use the mutation to search for courses
@@ -57,13 +55,6 @@ const Page = (props: Props) => {
             }
             keywords="programming community, coding skills, expert insights"
           />
-          <Navbar
-            open={open}
-            setOpen={setOpen}
-            activeItem={1}
-            route={route}
-            setRoute={setRoute}
-          />
           {courses && courses.length === 0 && (
             <div className="flex items-center justify-center flex-col w-full h-[50vh] mt-4">
               <div className="w-[95%] 800px:w-[85%] m-auto py-8">
@@ -94,9 +85,7 @@ const Page = (props: Props) => {
             <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 lg:gap-[25px] 1500px:grid-cols-4 1500px:gap-[35px] mb-12 border-0">
               {courses &&
                 courses.map((item: any, index: number) => (
-                  <>
-                    <CourseCard item={item} key={index} />
-                  </>
+                  <CourseCard item={item} key={index} />
                 ))}
             </div>
             {/* <div className="flex justify-center mt-4">

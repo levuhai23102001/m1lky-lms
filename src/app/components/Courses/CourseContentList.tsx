@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { HiMinus, HiPlus } from "react-icons/hi";
+import { IoIosCheckmarkCircle } from "react-icons/io";
 import { MdOutlineOndemandVideo } from "react-icons/md";
 
 type Props = {
@@ -103,12 +104,11 @@ const CourseContentList: FC<Props> = (props) => {
                         props.isDemo ? null : props?.setActiveVideo(videoIndex)
                       }
                     >
-                      <div className="flex items-start">
+                      <div className="flex items-start relative">
                         <div>
                           <MdOutlineOndemandVideo
                             size={25}
-                            className="mr-2"
-                            color="#1cdada"
+                            className="mr-2 dark:text-[#ff3377] text-[#5fbdff]"
                           />
                         </div>
                         <h1 className="text-[18px] inline-block break-words text-black dark:text-white">
@@ -121,6 +121,9 @@ const CourseContentList: FC<Props> = (props) => {
                           : item.videoLength}{" "}
                         {item.videoLength > 60 ? "hours" : "minutes"}
                       </h5>
+                      {/* {videoIndex < props.activeVideo && (
+                        <IoIosCheckmarkCircle className="dark:text-[#ff3377] text-[#5fbdff] absolute right-4 top-[50%] translate-y-[-50%]" />
+                      )} */}
                     </div>
                   );
                 })}

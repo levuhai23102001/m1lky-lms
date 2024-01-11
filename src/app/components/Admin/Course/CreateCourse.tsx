@@ -27,8 +27,8 @@ const CreateCourse = (props: Props) => {
     thumbnail: "",
   });
   console.log(courseInfo);
-  const [benefits, setBenefits] = useState([{ title: "" }]);
-  const [prerequisites, setPrerequisites] = useState([{ title: "" }]);
+  const [benefits, setBenefits] = useState<any[]>([{ title: "" }]);
+  const [prerequisites, setPrerequisites] = useState<any[]>([{ title: "" }]);
   const [courseContentData, setCourseContentData] = useState([
     {
       videoUrl: "",

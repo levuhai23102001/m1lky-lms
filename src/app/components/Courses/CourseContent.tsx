@@ -13,8 +13,6 @@ type Props = {
 };
 
 const CourseContent = ({ id, user }: Props) => {
-  const [open, setOpen] = useState(false);
-  const [route, setRoute] = useState("Login");
   const {
     data: contentData,
     isLoading,
@@ -30,17 +28,10 @@ const CourseContent = ({ id, user }: Props) => {
         <Loader />
       ) : (
         <>
-          <Navbar
-            open={open}
-            setOpen={setOpen}
-            activeItem={1}
-            route={route}
-            setRoute={setRoute}
-          />
           <div className="w-full grid 800px:grid-cols-10">
             <Heading
               title={data[activeVideo]?.title}
-              description="anything"
+              description={data[activeVideo]?.description}
               keywords={data[activeVideo]?.tags}
             />
             <div className="col-span-7">

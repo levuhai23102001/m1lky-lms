@@ -21,13 +21,13 @@ const Page: FC<Props> = (props) => {
         description="M1LKY is an online learning and teaching marketplace with over 213000 courses and 62 million students. Learn programming, marketing, data science and more."
         keywords="Programming,MERN,Redux,Machine Learning"
       />
-      <Navbar
+      {/* <Navbar
         open={open}
         setOpen={setOpen}
         activeItem={activeItem}
         route={route}
         setRoute={setRoute}
-      />
+      /> */}
       <Hero />
       <Courses />
       <Reviews />

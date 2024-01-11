@@ -2,13 +2,16 @@
 import Link from "next/link";
 import React, { FC } from "react";
 import { navItemsData } from "../../constants";
+import { usePathname } from "next/navigation";
 
 type Props = {
-  activeItem: number;
+  // activeItem: number;
   isMobile: boolean;
 };
 
-const NavItems: FC<Props> = ({ activeItem, isMobile }) => {
+const NavItems: FC<Props> = ({ isMobile }) => {
+  const pathname = usePathname();
+
   return (
     <>
       <div className="hidden 800px:flex">
@@ -17,8 +20,9 @@ const NavItems: FC<Props> = ({ activeItem, isMobile }) => {
             <Link href={`${item.path}`} key={index} passHref>
               <span
                 className={`${
-                  activeItem === index
-                    ? "dark:text-[#ff3366] text-[#96EFFF]"
+                  pathname === item.path ||
+                  pathname?.includes(item.keyword as string)
+                    ? "dark:text-[#ff3366] text-[#5fbdff]"
                     : "dark:text-white text-black"
                 } text-[16px] px-6 font-Poppins font-[400]`}
               >
@@ -44,8 +48,8 @@ const NavItems: FC<Props> = ({ activeItem, isMobile }) => {
                 <Link href={`${item.path}`} key={index} passHref>
                   <span
                     className={`${
-                      activeItem === index
-                        ? "dark:text-[#ff3366] text-[#96EFFF]"
+                      pathname === item.path
+                        ? "dark:text-[#ff3366] text-[#5fbdff]"
                         : "dark:text-white text-black"
                     } block py-5 text-[16px] px-6 font-Poppins font-[400]`}
                   >

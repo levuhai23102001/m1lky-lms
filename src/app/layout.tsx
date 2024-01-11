@@ -5,11 +5,13 @@ import { Josefin_Sans, Poppins } from "next/font/google";
 import { ThemeProvider } from "./utils/ThemeProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Providers } from "./Provider";
 import { SessionProvider } from "next-auth/react";
 import { useLoadUserQuery } from "./redux/features/api/apiSlice";
 import Loader from "./components/Loader/Loader";
+import MainLayout from "./layouts/MainLayout";
+import { usePathname } from "next/navigation";
 import socketIO from "socket.io-client";
 const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URL || "";
 const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
@@ -31,6 +33,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
   return (
     <html lang="en">
       <body
@@ -40,7 +43,13 @@ export default function RootLayout({
         <Providers>
           <SessionProvider>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-              <Custom>{children}</Custom>
+              <Custom>
+                {pathname?.includes("admin") ? (
+                  <>{children}</>
+                ) : (
+                  <MainLayout>{children}</MainLayout>
+                )}
+              </Custom>
               <ToastContainer
                 position="bottom-right"
                 autoClose={5000}
@@ -56,11 +65,35 @@ export default function RootLayout({
 }
 
 const Custom: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isLoading } = useLoadUserQuery({});
+  const { isLoading } = useLoadUserQuery(undefined, {});
+
+  const [loadingPage, setLoadingPage] = useState(false);
 
   useEffect(() => {
-    socketId.on("connection", () => {});
+    socketId.on("connect", () => {});
+
+    const handleStart = (url: any) => {
+      if (url !== window.location.pathname) {
+        setLoadingPage(true);
+      }
+    };
+
+    const handleComplete = (url: any) => {
+      if (url !== window.location.pathname) {
+        setLoadingPage(false);
+      }
+    };
+
+    const handleRouteChange = (url: any) => {
+      handleStart(url);
+    };
+
+    window.addEventListener("popstate", handleRouteChange);
+
+    return () => {
+      window.removeEventListener("popstate", handleRouteChange);
+    };
   }, []);
 
-  return <>{isLoading ? <Loader /> : <>{children}</>}</>;
+  return <>{loadingPage && isLoading ? <Loader /> : <>{children}</>}</>;
 };

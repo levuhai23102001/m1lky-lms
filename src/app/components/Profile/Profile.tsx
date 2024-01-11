@@ -19,12 +19,12 @@ const Profile: FC<Props> = ({ user }) => {
     skip: !logout ? true : false,
   });
   const [active, setActive] = useState(1);
-  const [courses, setCourses] = useState([]);
-  const { data, isLoading } = useGetAllCourseUserQuery(undefined, {});
+  const [courses, setCourses] = useState<any[]>([]);
+  const { data, isLoading } = useGetAllCourseUserQuery({});
 
   const logoutHandler = async () => {
-    setLogout(true);
     await signOut();
+    setLogout(true);
   };
 
   if (typeof window !== "undefined") {
@@ -36,6 +36,16 @@ const Profile: FC<Props> = ({ user }) => {
       }
     });
   }
+
+  useEffect(() => {
+    const redirectToHome = async () => {
+      if (logout) {
+        window.location.href = "/";
+      }
+    };
+
+    redirectToHome();
+  }, [logout]);
 
   useEffect(() => {
     if (data) {
@@ -76,10 +86,9 @@ const Profile: FC<Props> = ({ user }) => {
       {active === 3 && (
         <div className="w-full pl-7 px-2 800px:px-10 800px:pl-8 mt-[120px]">
           <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 lg:gap-[25px] 1500px:grid-cols-3 1500px:gap-[35px] mb-12 border-0">
-            {courses &&
-              courses.map((item: any, index: number) => (
-                <CourseCard key={index} item={item} isProfile={true} />
-              ))}
+            {courses.map((item: any, index: number) => (
+              <CourseCard key={index} item={item} isProfile={true} />
+            ))}
           </div>
           {courses.length === 0 && (
             <h1 className="text-center text-[18px] text-black dark:text-white font-Poppins">

@@ -12,7 +12,6 @@ type Props = {};
 
 const Page: FC<Props> = (props: Props) => {
   const [open, setOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState(6);
   const [route, setRoute] = useState("Login");
   // const { user } = useSelector((state: any) => state.auth);
   const { data: userData } = useLoadUserQuery(undefined, {});
@@ -25,13 +24,6 @@ const Page: FC<Props> = (props: Props) => {
           title={`${user?.name} // My Profile`}
           description="M1LKY is an online learning and teaching marketplace with over 213000 courses and 62 million students. Learn programming, marketing, data science and more."
           keywords="Programming,MERN,Redux,Machine Learning"
-        />
-        <Navbar
-          open={open}
-          setOpen={setOpen}
-          activeItem={activeItem}
-          route={route}
-          setRoute={setRoute}
         />
         <Profile user={user} />
         <Footer />

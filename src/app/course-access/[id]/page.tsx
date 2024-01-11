@@ -33,7 +33,7 @@ const Page = ({ params }: Props) => {
         <Loader />
       ) : (
         <div className="pt-20">
-          <CourseContent id={id} user={data.user} />
+          <CourseContent id={id} user={data?.user} />
         </div>
       )}
     </>

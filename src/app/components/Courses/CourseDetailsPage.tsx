@@ -58,7 +58,6 @@ const CourseDetailsPage = ({ id }: Props) => {
           <Navbar
             open={open}
             setOpen={setOpen}
-            activeItem={1}
             route={route}
             setRoute={setRoute}
           />

@@ -6,6 +6,7 @@ export const navItemsData = [
   {
     title: "Courses",
     path: "/courses",
+    keyword: "course",
   },
   {
     title: "Meeting",

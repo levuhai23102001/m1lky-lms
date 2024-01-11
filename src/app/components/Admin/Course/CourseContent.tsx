@@ -38,9 +38,23 @@ const CourseContent: FC<Props> = ({
   };
 
   const handleAddLink = (index: number) => {
-    const updatedData = [...courseContentData];
-    updatedData[index].links.push({ title: "", url: "" });
-    setCourseContentData(updatedData);
+    setCourseContentData((prevData: any) => {
+      const updatedData = prevData.map((item: any, i: number) => {
+        if (i === index) {
+          // Ensure 'links' property exists and is initialized as an array
+          const linksArray = item.links ? [...item.links] : [];
+
+          // Push a new link object with initial values
+          linksArray.push({ title: "", url: "" });
+
+          // Return a new object with the updated 'links' property
+          return { ...item, links: linksArray };
+        }
+        return item;
+      });
+
+      return updatedData;
+    });
   };
 
   const handleRemoveLink = (index: number, linkIndex: number) => {
@@ -150,9 +164,14 @@ const CourseContent: FC<Props> = ({
                         } font-Poppins cursor-pointer dark:text-white text-black bg-transparent outline-none`}
                         value={item.videoSection}
                         onChange={(e) => {
-                          const updatedData = [...courseContentData];
-                          updatedData[index].videoSection = e.target.value;
-                          setCourseContentData(updatedData);
+                          setCourseContentData((prevData: any) => {
+                            const updatedData = [...prevData];
+                            updatedData[index] = {
+                              ...updatedData[index],
+                              videoSection: e.target.value,
+                            };
+                            return updatedData;
+                          });
                         }}
                       />
                       <BiSolidPencil className="dark:text-white text-black cursor-pointer" />
@@ -285,10 +304,18 @@ const CourseContent: FC<Props> = ({
                           className={`${styles.input}`}
                           value={link.title}
                           onChange={(e) => {
-                            const updatedData = [...courseContentData];
-                            updatedData[index].links[linkIndex].title =
-                              e.target.value;
-                            setCourseContentData(updatedData);
+                            setCourseContentData((prevData: any) => {
+                              const updatedData = [...prevData];
+                              updatedData[index] = {
+                                ...updatedData[index],
+                                links: [...updatedData[index].links],
+                              };
+                              updatedData[index].links[linkIndex] = {
+                                ...updatedData[index].links[linkIndex],
+                                title: e.target.value,
+                              };
+                              return updatedData;
+                            });
                           }}
                         />
                         <input
@@ -297,10 +324,18 @@ const CourseContent: FC<Props> = ({
                           className={`${styles.input} !mt-6`}
                           value={link.url}
                           onChange={(e) => {
-                            const updatedData = [...courseContentData];
-                            updatedData[index].links[linkIndex].url =
-                              e.target.value;
-                            setCourseContentData(updatedData);
+                            setCourseContentData((prevData: any) => {
+                              const updatedData = [...prevData];
+                              updatedData[index] = {
+                                ...updatedData[index],
+                                links: [...updatedData[index].links],
+                              };
+                              updatedData[index].links[linkIndex] = {
+                                ...updatedData[index].links[linkIndex],
+                                url: e.target.value,
+                              };
+                              return updatedData;
+                            });
                           }}
                         />
                       </div>

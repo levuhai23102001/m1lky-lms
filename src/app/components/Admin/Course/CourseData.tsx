@@ -3,13 +3,17 @@ import React, { FC } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { toast } from "react-toastify";
 
+type Benefit = {
+  title: string;
+};
+
 type Props = {
-  benefits: { title: string }[];
-  setBenefits: (benefits: { title: string }[]) => void;
-  prerequisites: { title: string }[];
-  setPrerequisites: (prerequisites: { title: string }[]) => void;
+  benefits: Benefit[];
+  setBenefits: React.Dispatch<React.SetStateAction<Benefit[]>>;
+  prerequisites: Benefit[];
+  setPrerequisites: React.Dispatch<React.SetStateAction<Benefit[]>>;
   active: number;
-  setActive: (active: number) => void;
+  setActive: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const CourseData: FC<Props> = ({
@@ -21,9 +25,14 @@ const CourseData: FC<Props> = ({
   setActive,
 }) => {
   const handleBenefitsChange = (index: number, value: any) => {
-    const updatedBenefits = [...benefits];
-    updatedBenefits[index].title = value;
-    setBenefits(updatedBenefits);
+    setBenefits((prevBenefits: Benefit[]) => {
+      const updatedBenefits = [...prevBenefits];
+      updatedBenefits[index] = {
+        ...updatedBenefits[index],
+        title: value,
+      };
+      return updatedBenefits;
+    });
   };
 
   const handleAddBenefit = () => {
@@ -31,9 +40,14 @@ const CourseData: FC<Props> = ({
   };
 
   const handlePrerequisitesChange = (index: number, value: any) => {
-    const updatedPrerequisites = [...prerequisites];
-    updatedPrerequisites[index].title = value;
-    setPrerequisites(updatedPrerequisites);
+    setPrerequisites((prevPrerequisites: Benefit[]) => {
+      const updatedPrerequisites = [...prevPrerequisites];
+      updatedPrerequisites[index] = {
+        ...updatedPrerequisites[index],
+        title: value,
+      };
+      return updatedPrerequisites;
+    });
   };
 
   const handleAddPrerequisites = () => {
@@ -75,6 +89,7 @@ const CourseData: FC<Props> = ({
         ))}
         <AddCircleIcon
           style={{ margin: "10px 0", cursor: "pointer", width: "30px" }}
+          className="text-black dark:text-white"
           onClick={handleAddBenefit}
         />
       </div>
@@ -100,6 +115,7 @@ const CourseData: FC<Props> = ({
         ))}
         <AddCircleIcon
           style={{ margin: "10px 0", cursor: "pointer", width: "30px" }}
+          className="text-black dark:text-white"
           onClick={handleAddPrerequisites}
         />
       </div>
