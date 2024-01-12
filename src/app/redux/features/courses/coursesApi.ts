@@ -8,8 +8,6 @@ export const coursesApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
         credentials: "include" as const,
-        mode: "no-cors",
-        referrerPolicy: "strict-origin-when-cross-origin",
       }),
     }),
     getAllCoursesAdmin: builder.query({
@@ -17,8 +15,6 @@ export const coursesApi = apiSlice.injectEndpoints({
         url: "courses/get-all-courses",
         method: "GET",
         credentials: "include" as const,
-        mode: "no-cors",
-        referrerPolicy: "strict-origin-when-cross-origin",
       }),
     }),
     getAllCourseUser: builder.query({
@@ -28,8 +24,6 @@ export const coursesApi = apiSlice.injectEndpoints({
         }`,
         method: "GET",
         credentials: "include" as const,
-        mode: "no-cors",
-        referrerPolicy: "strict-origin-when-cross-origin",
       }),
     }),
     deleteCourse: builder.mutation({
@@ -37,8 +31,6 @@ export const coursesApi = apiSlice.injectEndpoints({
         url: `courses/delete-course/${id}`,
         method: "DELETE",
         credentials: "include" as const,
-        mode: "no-cors",
-        referrerPolicy: "strict-origin-when-cross-origin",
       }),
     }),
     editCourse: builder.mutation({
@@ -47,8 +39,6 @@ export const coursesApi = apiSlice.injectEndpoints({
         method: "PUT",
         body: data,
         credentials: "include" as const,
-        mode: "no-cors",
-        referrerPolicy: "strict-origin-when-cross-origin",
       }),
     }),
     getCourseDetails: builder.query({
@@ -56,8 +46,6 @@ export const coursesApi = apiSlice.injectEndpoints({
         url: `courses/get-course/${id}`,
         method: "GET",
         credentials: "include" as const,
-        mode: "no-cors",
-        referrerPolicy: "strict-origin-when-cross-origin",
       }),
     }),
     getCourseContent: builder.query({
@@ -65,8 +53,6 @@ export const coursesApi = apiSlice.injectEndpoints({
         url: `courses/get-course-content/${id}`,
         method: "GET",
         credentials: "include" as const,
-        mode: "no-cors",
-        referrerPolicy: "strict-origin-when-cross-origin",
       }),
     }),
     addNewQuestion: builder.mutation({
@@ -79,8 +65,6 @@ export const coursesApi = apiSlice.injectEndpoints({
           contentId,
         },
         credentials: "include" as const,
-        mode: "no-cors",
-        referrerPolicy: "strict-origin-when-cross-origin",
       }),
     }),
     addNewAnswer: builder.mutation({
@@ -89,8 +73,6 @@ export const coursesApi = apiSlice.injectEndpoints({
         method: "PUT",
         body: { answer, courseId, contentId, questionId },
         credentials: "include" as const,
-        mode: "no-cors",
-        referrerPolicy: "strict-origin-when-cross-origin",
       }),
     }),
     addReview: builder.mutation({
@@ -99,8 +81,6 @@ export const coursesApi = apiSlice.injectEndpoints({
         method: "PUT",
         body: { review, rating },
         credentials: "include" as const,
-        mode: "no-cors",
-        referrerPolicy: "strict-origin-when-cross-origin",
       }),
     }),
     addReplyToReview: builder.mutation({
@@ -113,8 +93,6 @@ export const coursesApi = apiSlice.injectEndpoints({
           reviewId,
         },
         credentials: "include" as const,
-        mode: "no-cors",
-        referrerPolicy: "strict-origin-when-cross-origin",
       }),
     }),
     searchCourse: builder.query({
@@ -122,8 +100,6 @@ export const coursesApi = apiSlice.injectEndpoints({
         url: `${title === "" ? null : `courses/search?title=${title}`}`,
         method: "GET",
         credentials: "include" as const,
-        mode: "no-cors",
-        referrerPolicy: "strict-origin-when-cross-origin",
       }),
     }),
   }),

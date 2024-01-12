@@ -16,7 +16,6 @@ export const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
         credentials: "include" as const,
-        mode: "no-cors",
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
@@ -46,7 +45,6 @@ export const authApi = apiSlice.injectEndpoints({
           password,
         },
         credentials: "include" as const,
-        mode: "no-cors",
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
@@ -72,7 +70,6 @@ export const authApi = apiSlice.injectEndpoints({
           avatar,
         },
         credentials: "include" as const,
-        mode: "no-cors",
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
@@ -93,7 +90,6 @@ export const authApi = apiSlice.injectEndpoints({
         url: "auth/logout",
         method: "GET",
         credentials: "include" as const,
-        mode: "no-cors",
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
