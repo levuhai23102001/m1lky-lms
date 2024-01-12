@@ -133,7 +133,11 @@ const CourseDetails = ({
               Course Overview
             </h1>
             {/* course content list */}
-            <CourseContentList data={data?.courseData} isDemo={true} />
+            <CourseContentList
+              data={data?.courseData}
+              isDemo={true}
+              setActiveVideo={() => null}
+            />
             <br />
             {/* course description */}
             <div className="w-full">
