@@ -1,4 +1,3 @@
-import { createOrder } from "./../../../../../../m1lky-server/controllers/order.controller";
 import { apiSlice } from "../api/apiSlice";
 
 export const ordersApi = apiSlice.injectEndpoints({
