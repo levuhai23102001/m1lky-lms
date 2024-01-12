@@ -8,6 +8,7 @@ export const coursesApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
         credentials: "include" as const,
+        mode: "no-cors",
       }),
     }),
     getAllCoursesAdmin: builder.query({
@@ -15,6 +16,7 @@ export const coursesApi = apiSlice.injectEndpoints({
         url: "courses/get-all-courses",
         method: "GET",
         credentials: "include" as const,
+        mode: "no-cors",
       }),
     }),
     getAllCourseUser: builder.query({
@@ -24,6 +26,7 @@ export const coursesApi = apiSlice.injectEndpoints({
         }`,
         method: "GET",
         credentials: "include" as const,
+        mode: "no-cors",
       }),
     }),
     deleteCourse: builder.mutation({
@@ -31,6 +34,7 @@ export const coursesApi = apiSlice.injectEndpoints({
         url: `courses/delete-course/${id}`,
         method: "DELETE",
         credentials: "include" as const,
+        mode: "no-cors",
       }),
     }),
     editCourse: builder.mutation({
@@ -39,6 +43,7 @@ export const coursesApi = apiSlice.injectEndpoints({
         method: "PUT",
         body: data,
         credentials: "include" as const,
+        mode: "no-cors",
       }),
     }),
     getCourseDetails: builder.query({
@@ -46,6 +51,7 @@ export const coursesApi = apiSlice.injectEndpoints({
         url: `courses/get-course/${id}`,
         method: "GET",
         credentials: "include" as const,
+        mode: "no-cors",
       }),
     }),
     getCourseContent: builder.query({
@@ -53,6 +59,7 @@ export const coursesApi = apiSlice.injectEndpoints({
         url: `courses/get-course-content/${id}`,
         method: "GET",
         credentials: "include" as const,
+        mode: "no-cors",
       }),
     }),
     addNewQuestion: builder.mutation({
@@ -65,6 +72,7 @@ export const coursesApi = apiSlice.injectEndpoints({
           contentId,
         },
         credentials: "include" as const,
+        mode: "no-cors",
       }),
     }),
     addNewAnswer: builder.mutation({
@@ -73,6 +81,7 @@ export const coursesApi = apiSlice.injectEndpoints({
         method: "PUT",
         body: { answer, courseId, contentId, questionId },
         credentials: "include" as const,
+        mode: "no-cors",
       }),
     }),
     addReview: builder.mutation({
@@ -81,6 +90,7 @@ export const coursesApi = apiSlice.injectEndpoints({
         method: "PUT",
         body: { review, rating },
         credentials: "include" as const,
+        mode: "no-cors",
       }),
     }),
     addReplyToReview: builder.mutation({
@@ -93,6 +103,7 @@ export const coursesApi = apiSlice.injectEndpoints({
           reviewId,
         },
         credentials: "include" as const,
+        mode: "no-cors",
       }),
     }),
     searchCourse: builder.query({
@@ -100,6 +111,7 @@ export const coursesApi = apiSlice.injectEndpoints({
         url: `${title === "" ? null : `courses/search?title=${title}`}`,
         method: "GET",
         credentials: "include" as const,
+        mode: "no-cors",
       }),
     }),
   }),

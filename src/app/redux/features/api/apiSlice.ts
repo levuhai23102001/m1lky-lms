@@ -12,6 +12,7 @@ export const apiSlice = createApi({
         url: "auth/refresh-token",
         method: "GET",
         credentials: "include" as const,
+        mode: "no-cors",
       }),
     }),
     loadUser: builder.query({
@@ -19,6 +20,7 @@ export const apiSlice = createApi({
         url: "auth/me",
         method: "GET",
         credentials: "include" as const,
+        mode: "no-cors",
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
