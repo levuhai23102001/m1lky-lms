@@ -205,8 +205,8 @@ const CourseContentMedia = ({
       />
       <div className="w-full flex items-center justify-between my-3">
         <div
-          className={`${styles.button} !w-[unset] !min-h-[40px] !py-[unset]  ${
-            activeVideo === 0 && "!cursor-no-drop opacity-[.8]"
+          className={`w-[unset] min-h-[40px] py-[unset] px-6 flex items-center justify-center dark:bg-[#ff3377] bg-[#5fbdff] text-center text-white rounded cursor-pointer  ${
+            activeVideo === 0 && "!cursor-no-drop opacity-[.6]"
           }`}
           onClick={() =>
             setActiveVideo(activeVideo === 0 ? 0 : activeVideo - 1)
@@ -216,7 +216,7 @@ const CourseContentMedia = ({
           Prev Lesson
         </div>
         <div
-          className={`${styles.button} !w-[unset] !min-h-[40px] !py-[unset]  ${
+          className={`w-[unset] min-h-[40px] py-[unset] px-6 flex items-center justify-center dark:bg-[#ff3377] bg-[#5fbdff] text-center text-white rounded cursor-pointer ${
             data.length - 1 === activeVideo && "!cursor-no-drop opacity-[.8]"
           }`}
           onClick={() =>
