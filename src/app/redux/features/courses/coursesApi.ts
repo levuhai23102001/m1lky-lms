@@ -1,4 +1,3 @@
-import { searchCourse } from "./../../../../../../m1lky-server/controllers/course.controller";
 import { apiSlice } from "../api/apiSlice";
 
 export const coursesApi = apiSlice.injectEndpoints({
